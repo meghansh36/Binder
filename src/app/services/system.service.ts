@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
+import { Subject } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class SystemService {
+
+  public systemFileEmitter = new Subject();
 
   constructor(private _electronService: ElectronService) { }
 
@@ -14,11 +17,13 @@ export class SystemService {
       this._electronService.ipcRenderer.send('get-system-files');
 
 
-      this._electronService.ipcRenderer.on('return-system-files', (event, fileData) => {
-        console.log(event, fileData);
+      this._electronService.ipcRenderer.once('return-system-files', (event, fileData) => {
+        this.systemFileEmitter.next(fileData);
       })
+
+
     }
-
-
   }
+
+  
 }

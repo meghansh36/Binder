@@ -7,10 +7,8 @@
         
         <div class="wordFileSpace" style="color: white">
             <h1 class="mat-h1 mat-headline">System Files</h1>
-            <div class="fileList">
-                <ul class="file-container" *ngFor="let file of systemFiles">
-                    <li>sample file</li>
-                </ul>
+            <div class="fileList" *ngFor="let file of systemFiles">
+                <file [fileInfo]="file"></file>
             </div>
         </div>
 

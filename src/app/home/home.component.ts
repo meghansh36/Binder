@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { SystemService } from '../services/system.service';
 
 @Component({
@@ -8,15 +8,27 @@ import { SystemService } from '../services/system.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private systemService: SystemService) { }
+  systemFiles = [];
+  constructor(private systemService: SystemService, private cd: ChangeDetectorRef) { }
 
 
   ngOnInit() {
+
+    this.systemService.systemFileEmitter.subscribe((fileData:Array<Object>) => {
+      this.receivedSystemFiles(fileData);
+    })
+
     this.fetchSystemFiles();
   }
 
   fetchSystemFiles() {
     this.systemService.fetchSystemFiles();
+  }
+
+  receivedSystemFiles(files:Array<Object>) {
+    this.systemFiles = files;
+    console.log(this.systemFiles);
+    this.cd.detectChanges();
   }
 
 }
