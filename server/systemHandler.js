@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { sysPaths } = require('./systemPaths');
+const filePreview = require('filepreview-es6');
 
 function getFiles(basePath, filter, ignore) {
     if(!fs.existsSync(basePath)) {
@@ -41,6 +42,35 @@ function findFiles() {
     return results;
 }
 
+function createBuffer(thumbnailPath) {
+    let buffer =  fs.readFileSync(thumbnailPath);
+
+    fs.unlinkSync(thumbnailPath);
+
+    return buffer;
+}
+
+async function getPreview(filePath) {
+
+        const fileName = filePath.slice(filePath.lastIndexOf('/')+1);
+        const options = {
+        width: 200,
+        height: 200,
+        quality: 80,
+        background: '#fff',
+        pdf_path: '/tmp/'
+        }
+    
+        const outputPath = path.join(__dirname + '/../src/assets', `${fileName.replace(/\.[^/.]+$/, "")}.jpg`);
+        console.log('generating file preview', filePath, fileName);
+        let response = await filePreview.generateAsync(filePath, outputPath, options);
+        
+        let buffer = createBuffer(response.thumbnail);
+
+        return buffer;
+}
+
 module.exports = {
-    findFiles
+    findFiles,
+    getPreview
 }

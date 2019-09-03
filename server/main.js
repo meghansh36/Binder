@@ -35,9 +35,20 @@ app.on('ready', createWindow);
 
 
 ipcMain.on('get-system-files', (event, arg) => {
-
-  // get file data here
   console.log("finding files");
   let data = systemHandler.findFiles();
   event.reply('return-system-files', data)
+})
+
+ipcMain.on('get-preview', async (event, filePath) => {
+
+  try {
+    let buffer = await systemHandler.getPreview(filePath)
+    
+    event.reply('return-preview', buffer)
+  } catch (error) {
+    console.log(error)
+  }
+
+  
 })
