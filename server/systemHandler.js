@@ -55,7 +55,7 @@ async function getPreview(filePath) {
         const fileName = filePath.slice(filePath.lastIndexOf('/')+1);
         const options = {
         width: 200,
-        height: 200,
+        height: 250,
         quality: 80,
         background: '#fff',
         pdf_path: '/tmp/'
@@ -64,7 +64,7 @@ async function getPreview(filePath) {
         const outputPath = path.join(__dirname + '/../src/assets', `${fileName.replace(/\.[^/.]+$/, "")}.jpg`);
         console.log('generating file preview', filePath, fileName);
         let response = await filePreview.generateAsync(filePath, outputPath, options);
-        
+        console.log(response);
         let buffer = createBuffer(response.thumbnail);
 
         return buffer;

@@ -7,11 +7,13 @@ import { HomeComponent } from './home/home.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxElectronModule } from 'ngx-electron';
+import { FileNamePipe } from './pipes/file-name.pipe';
 @NgModule({
   declarations: [
     AppComponent,
     FileComponent,
-    HomeComponent
+    HomeComponent,
+    FileNamePipe
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,10 @@
 <div class="file-wrapper" style="height:300px; width: 200px; color: white; ">
-    <div class="file-header">{{file.filename}}</div>
+    <div class="file-header mat-body-strong mat-body-2">{{file.filename | fileName}}</div>
     <div class="preview-area">
-        <img [src]="imageToShow" alt="" *ngIf="showPreview">
+            <div *ngIf="!showPreview" style="height:250px; width:200px">
+                <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+            </div>
+            <img [src]="imageToShow" class="preview-img" *ngIf="showPreview">
     </div>
-    <div class="file-header">last modified on</div>
+    <div class="file-header mat-small mat-caption">Last Modified: </div>
 </div>

@@ -12,8 +12,8 @@ export class FileComponent implements OnInit {
   @Input('fileInfo') file: Object;
   imageToShow: any;
   showPreview = false;
-  constructor(private systemService: SystemService, private cd: ChangeDetectorRef) { 
-  }
+  timer: NodeJS.Timer;
+  constructor(private systemService: SystemService, private cd: ChangeDetectorRef) { }
   
   ngOnInit() {
     //show loader
@@ -22,6 +22,12 @@ export class FileComponent implements OnInit {
   }
   
   generateFilePreview() {
+    this.timer = setTimeout(() => {
+      this.imageToShow = this.systemService.errorImg;
+      this.showPreview = true;
+      this.cd.detectChanges();  
+    }, 80000);
+
     this.systemService.getFilePreview(this.file['filename']);
     this.systemService.previewEmitter.subscribe(data => {
       this.renderPreview(data);
@@ -29,6 +35,7 @@ export class FileComponent implements OnInit {
   }
 
   renderPreview(data) {
+    clearTimeout(this.timer);
     this.imageToShow = data;
     this.showPreview = true;
     this.cd.detectChanges();

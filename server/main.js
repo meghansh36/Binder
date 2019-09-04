@@ -23,7 +23,7 @@ function createWindow() {
       );
 
     win.webContents.openDevTools()
-
+    win.maximize()
   win.on('closed', () => {
     win = null
   })
@@ -34,6 +34,7 @@ app.on('ready', createWindow);
  ////////////////////////////////////////
 
 
+ 
 ipcMain.on('get-system-files', (event, arg) => {
   console.log("finding files");
   let data = systemHandler.findFiles();
@@ -44,7 +45,7 @@ ipcMain.on('get-preview', async (event, filePath, uniqueChannel) => {
 
   try {
     let buffer = await systemHandler.getPreview(filePath)
-    
+    console.log('sending back to unique channel ', uniqueChannel)
     event.reply(`${uniqueChannel}`, buffer);
   } catch (error) {
     console.log(error)

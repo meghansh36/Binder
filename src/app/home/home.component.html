@@ -3,12 +3,12 @@
         <span>Application Title</span>
       </mat-toolbar>
 
-    <div class="file-space" style="height: 500px; background-color: rgba(0,0,0,.87)">
+    <div class="file-space" style="height: 100%; background-color: rgba(0,0,0,.87)">
         
         <div class="wordFileSpace" style="color: white">
             <h1 class="mat-h1 mat-headline">System Files</h1>
-            <div class="fileList" *ngFor="let file of systemFiles">
-                <file [fileInfo]="file"></file>
+            <div class="fileList" >
+                <file [fileInfo]="file" *ngFor="let file of systemFiles"></file>
             </div>
         </div>
 
