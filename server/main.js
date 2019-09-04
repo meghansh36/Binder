@@ -40,12 +40,12 @@ ipcMain.on('get-system-files', (event, arg) => {
   event.reply('return-system-files', data)
 })
 
-ipcMain.on('get-preview', async (event, filePath) => {
+ipcMain.on('get-preview', async (event, filePath, uniqueChannel) => {
 
   try {
     let buffer = await systemHandler.getPreview(filePath)
     
-    event.reply('return-preview', buffer)
+    event.reply(`${uniqueChannel}`, buffer);
   } catch (error) {
     console.log(error)
   }

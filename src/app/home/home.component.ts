@@ -4,7 +4,8 @@ import { SystemService } from '../services/system.service';
 @Component({
   selector: 'home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+  providers: [SystemService]
 })
 export class HomeComponent implements OnInit {
 
@@ -26,8 +27,10 @@ export class HomeComponent implements OnInit {
   }
 
   receivedSystemFiles(files:Array<Object>) {
-    this.systemFiles.push(files[0]);
-    //this.systemFiles = files;
+    
+    // this.systemFiles.push(files[0]);
+    // this.systemFiles.push(files[1]);
+    this.systemFiles = files;
     console.log(this.systemFiles);
     this.cd.detectChanges();
   }
