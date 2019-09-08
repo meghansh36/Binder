@@ -75,12 +75,13 @@ export class SystemService {
     this._electronService.ipcRenderer.send('showSysFile', filePath)
   }
   
-  delete(filePath) {
+  delete(filePath, file) {
     var uniqueChannel = `delete-${this.getRandomKey()}`;
     this._electronService.ipcRenderer.send('deleteSysFile', filePath, uniqueChannel)
 
     this._electronService.ipcRenderer.once(`${uniqueChannel}-success`, (event) => {
       this.snackBar.open('File Deleted Successfully', '', {panelClass: 'success', duration: 2000});
+      file.visible = false;
     })
 
     this._electronService.ipcRenderer.once(`${uniqueChannel}-failure`, (event) => {

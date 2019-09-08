@@ -65,7 +65,7 @@ export class FileComponent implements OnInit {
   }
 
   delete() {
-    this.systemService.delete(this.file["filename"]);
+    this.systemService.delete(this.file["filename"], this);
   }
 
 }
