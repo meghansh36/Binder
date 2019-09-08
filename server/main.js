@@ -50,7 +50,7 @@ ipcMain.on('get-preview', async (event, filePath, uniqueChannel) => {
   try {
     let buffer = await systemHandler.getPreview(filePath, browser);
     console.log('sending back to unique channel ', uniqueChannel)
-    event.reply(`${uniqueChannel}`, buffer);
+    event.reply(uniqueChannel, buffer);
   } catch (error) {
     console.log(error)
   }  
@@ -58,4 +58,18 @@ ipcMain.on('get-preview', async (event, filePath, uniqueChannel) => {
 
 ipcMain.on('openSysFile', (event, filePath) => {
   shell.openItem(filePath);
+})
+
+ipcMain.on('showSysFile', (event, filePath) => {
+  shell.showItemInFolder(filePath);
+})
+
+ipcMain.on('deleteSysFile', async (event, filePath, uniqueChannel) => {
+  try {
+    await systemHandler.deleteFile(filePath);
+    event.reply(`${uniqueChannel}-success`)
+  } catch (error) {
+    console.log("sending failure")
+    event.reply(`${uniqueChannel}-failure`)
+  }
 })

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
 import { Subject } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Injectable()
@@ -8,7 +9,7 @@ export class SystemService {
 
   public systemFileEmitter = new Subject();
   public previewEmitter = new Subject();
-  constructor(private _electronService: ElectronService) { }
+  constructor(private _electronService: ElectronService, private snackBar: MatSnackBar) { }
 
   fetchSystemFiles() {
     if(this._electronService.isElectronApp) {
@@ -49,7 +50,7 @@ export class SystemService {
     var uniqueChannel = `return-preview-${this.getRandomKey()}`;
     this._electronService.ipcRenderer.send('get-preview', filePath, uniqueChannel);
 
-    this._electronService.ipcRenderer.once(`${uniqueChannel}`, async (event, rawBuffer: Buffer) => {
+    this._electronService.ipcRenderer.once(uniqueChannel, async (event, rawBuffer: Buffer) => {
 
       try {
         let arrayBuffer = rawBuffer.buffer.slice(rawBuffer.byteOffset, rawBuffer.byteOffset + rawBuffer.byteLength);
@@ -68,6 +69,23 @@ export class SystemService {
 
   openFile(filePath) {
     this._electronService.ipcRenderer.send('openSysFile', filePath);
+  }
+
+  showInFolder(filePath) {
+    this._electronService.ipcRenderer.send('showSysFile', filePath)
+  }
+  
+  delete(filePath) {
+    var uniqueChannel = `delete-${this.getRandomKey()}`;
+    this._electronService.ipcRenderer.send('deleteSysFile', filePath, uniqueChannel)
+
+    this._electronService.ipcRenderer.once(`${uniqueChannel}-success`, (event) => {
+      this.snackBar.open('File Deleted Successfully', '', {panelClass: 'success', duration: 2000});
+    })
+
+    this._electronService.ipcRenderer.once(`${uniqueChannel}-failure`, (event) => {
+      this.snackBar.open('Error in Deleting File', '', {panelClass: 'failure', duration: 2000});
+    })
   }
 
 

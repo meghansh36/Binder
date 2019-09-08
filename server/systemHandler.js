@@ -1,9 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 const { sysPaths } = require('./systemPaths');
-const word2pdf = require("word2pdf");
 const pdf = require('pdf-poppler')
 const mammoth = require('mammoth');
+const trash = require('trash');
 
 function getFiles(basePath, filter, ignore) {
     if (!fs.existsSync(basePath)) {
@@ -85,7 +85,20 @@ async function getPreview(filePath, puppeteerBrowser) {
 
 }
 
+async function deleteFile(filePath) {
+    try { 
+        if(!fs.existsSync(filePath))
+            throw new Error();
+        
+        await trash(filePath);
+    } catch (error) {
+        console.log("throwing error")
+        throw new Error();
+    }
+}
+
 module.exports = {
     findFiles,
-    getPreview
+    getPreview,
+    deleteFile
 }

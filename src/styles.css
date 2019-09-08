@@ -5,3 +5,18 @@ html, body {
     margin: 0;
     padding: 0 ;
 }
+
+.mat-menu-panel {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+}
+
+.mat-snack-bar-container.success {
+    background-color: #212121;
+    color: #1de9b6
+}
+
+.mat-snack-bar-container.failure {
+    background-color: #212121;
+    color: #ef5350
+}

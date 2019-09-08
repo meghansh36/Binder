@@ -8,7 +8,8 @@ import { HomeComponent } from './home/home.component';
 
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatMenuModule} from '@angular/material/menu';
-
+import { ClickOutsideModule } from 'ng-click-outside';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxElectronModule } from 'ngx-electron';
@@ -25,7 +26,9 @@ import { FileNamePipe } from './pipes/file-name.pipe';
     MatToolbarModule,
     BrowserAnimationsModule,
     NgxElectronModule,
-    MatMenuModule
+    MatMenuModule,
+    ClickOutsideModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

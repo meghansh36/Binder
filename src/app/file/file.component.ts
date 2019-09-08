@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { SystemService } from '../services/system.service';
+import { MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
   selector: 'file',
@@ -8,12 +9,14 @@ import { SystemService } from '../services/system.service';
   providers: [SystemService]
 })
 export class FileComponent implements OnInit {
-
+  
+  @ViewChild('trigger', {read: MatMenuTrigger, static: false}) trigger: MatMenuTrigger;
   @Input('fileInfo') file: Object;
   imageToShow: any;
   showPreview = false;
   timer: NodeJS.Timer;
   LMDate: string;
+  visible = true;
   constructor(private systemService: SystemService, private cd: ChangeDetectorRef) { }
   
   ngOnInit() {
@@ -46,6 +49,23 @@ export class FileComponent implements OnInit {
 
   openFile() {
     this.systemService.openFile(this.file['filename'])
+  }
+
+  openMenu(event) {
+    this.trigger.openMenu();
+    event.stopPropagation();
+  }
+
+  dismissMenu() {
+    this.trigger.closeMenu();
+  }
+
+  showInFolder() {
+    this.systemService.showInFolder(this.file['filename']);
+  }
+
+  delete() {
+    this.systemService.delete(this.file["filename"]);
   }
 
 }

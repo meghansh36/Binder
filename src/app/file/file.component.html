@@ -1,11 +1,11 @@
-<div class="file-wrapper" style="height:300px; width: 200px; color: white; " (click)="openFile()">
+<div class="file-wrapper" style="height:300px; width: 200px; color: white; " (click)="openFile()" *ngIf="visible">
     <div class="file-header mat-body-strong mat-body-2">{{file.filename | fileName}}</div>
     <div class="preview-area">
             <div *ngIf="!showPreview" style="height:250px; width:200px">
                 <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
             </div>
             <div class='img-wrapper'>
-                    <i class="material-icons option-icon"> more_vert</i>
+                    <i class="material-icons option-icon" #trigger [matMenuTriggerFor]="appMenu" (click)="openMenu($event)" (clickOutside)="dismissMenu()"> more_vert</i>
                 <img [src]="imageToShow" class="preview-img" *ngIf="showPreview" style="height: 250px; width:200px">
             </div>
     </div>
@@ -14,3 +14,13 @@
         <span>{{LMDate}}</span>
     </div>
 </div>
+
+
+<mat-menu #appMenu="matMenu">
+    <button mat-menu-item (click)="openFile()">Open File</button>
+    <button mat-menu-item (click)="showInFolder()">Show in Folder</button>
+    <button mat-menu-item>Rename</button>
+    <button mat-menu-item (click)="delete()">Delete</button>
+    <button mat-menu-item>Upload to Drive</button>
+
+</mat-menu>
