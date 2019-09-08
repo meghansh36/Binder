@@ -4,7 +4,10 @@
             <div *ngIf="!showPreview" style="height:250px; width:200px">
                 <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
             </div>
-            <img [src]="imageToShow" class="preview-img" *ngIf="showPreview" style="height: 250px; width:200px">
+            <div class='img-wrapper'>
+                    <i class="material-icons option-icon"> more_vert</i>
+                <img [src]="imageToShow" class="preview-img" *ngIf="showPreview" style="height: 250px; width:200px">
+            </div>
     </div>
     <div class="file-footer mat-small mat-caption">
         <span>Last Modified</span>
