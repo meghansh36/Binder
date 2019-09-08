@@ -9,8 +9,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "electron-build": "ng build --base-href ./ && electron .",
-    "electron": "electron ."
+    "electron-build": "ng build --base-href ./ && ./node_modules/.bin/electron .",
+    "electron": "./node_modules/.bin/electron ."
   },
   "private": true,
   "dependencies": {
@@ -25,10 +25,12 @@
     "@angular/platform-browser": "~8.2.0",
     "@angular/platform-browser-dynamic": "~8.2.0",
     "@angular/router": "~8.2.0",
-    "filepreview-es6": "^1.0.8",
     "ngx-electron": "^2.1.1",
+    "pdf-poppler": "^0.2.1",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
+    "word2pdf": "^1.0.8",
+    "wsl-path": "^2.0.0",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {

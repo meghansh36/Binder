@@ -1,5 +1,5 @@
-const basePath = '/home/meghansh'
-const sysPaths = [`${basePath}/Documents`, `${basePath}/Desktop`, `${basePath}/Downloads`]
+const basePath = 'E:\\'
+const sysPaths = [`${basePath}`]
 
 module.exports = {
     sysPaths

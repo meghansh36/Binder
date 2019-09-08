@@ -36,7 +36,7 @@ app.on('ready', createWindow);
 
  
 ipcMain.on('get-system-files', (event, arg) => {
-  console.log("finding files");
+  console.log("finding files", __dirname);
   let data = systemHandler.findFiles();
   event.reply('return-system-files', data)
 })

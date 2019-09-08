@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class FileNamePipe implements PipeTransform {
 
   transform(value: string, ...args: any[]): any {
-    return value.slice(value.lastIndexOf('/')+1);
+    return value.slice(value.lastIndexOf('\\')+1);
   }
 
 }
