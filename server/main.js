@@ -1,10 +1,11 @@
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow, ipcMain, shell } = require('electron')
 const path = require("path")
 const url = require('url')
 const systemHandler = require('./systemHandler');
+const puppeteer = require('puppeteer')
 
-
-function createWindow() {
+let browser;
+async function createWindow() {
     let win = new BrowserWindow({
         width: 800,
         height: 600,
@@ -13,6 +14,8 @@ function createWindow() {
             devTools: true
         }
     })
+
+  browser = await puppeteer.launch({executablePath: './node_modules/puppeteer/.local-chromium/win64-674921/chrome-win/chrome.exe'});
     
     win.loadURL(
         url.format({
@@ -24,8 +27,9 @@ function createWindow() {
 
     win.webContents.openDevTools()
     win.maximize()
-  win.on('closed', () => {
+  win.on('closed', async () => {
     win = null
+    await browser.close();
   })
 
 }
@@ -44,12 +48,14 @@ ipcMain.on('get-system-files', (event, arg) => {
 ipcMain.on('get-preview', async (event, filePath, uniqueChannel) => {
 
   try {
-    let buffer = await systemHandler.getPreview(filePath)
+    let buffer = await systemHandler.getPreview(filePath, browser);
     console.log('sending back to unique channel ', uniqueChannel)
     event.reply(`${uniqueChannel}`, buffer);
   } catch (error) {
     console.log(error)
-  }
+  }  
+})
 
-  
+ipcMain.on('openSysFile', (event, filePath) => {
+  shell.openItem(filePath);
 })

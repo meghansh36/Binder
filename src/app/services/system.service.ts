@@ -47,7 +47,6 @@ export class SystemService {
 
   getFilePreview(filePath) {
     var uniqueChannel = `return-preview-${this.getRandomKey()}`;
-    console.log('getting preview for file ', filePath, uniqueChannel);
     this._electronService.ipcRenderer.send('get-preview', filePath, uniqueChannel);
 
     this._electronService.ipcRenderer.once(`${uniqueChannel}`, async (event, rawBuffer: Buffer) => {
@@ -58,7 +57,6 @@ export class SystemService {
         let blob = new Blob([arrayBuffer as BlobPart], {type: 'image/jpeg'});
         
         let data = await this.getImageData(blob);
-        console.log(filePath, data);
         this.previewEmitter.next(data);
         // this._electronService.ipcRenderer.
         
@@ -66,6 +64,10 @@ export class SystemService {
         console.log(error)
       }
     })
+  }
+
+  openFile(filePath) {
+    this._electronService.ipcRenderer.send('openSysFile', filePath);
   }
 
 

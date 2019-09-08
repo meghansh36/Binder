@@ -3,7 +3,7 @@ const path = require('path');
 const { sysPaths } = require('./systemPaths');
 const word2pdf = require("word2pdf");
 const pdf = require('pdf-poppler')
-const wsl_path = require("wsl-path");
+const mammoth = require('mammoth');
 
 function getFiles(basePath, filter, ignore) {
     if (!fs.existsSync(basePath)) {
@@ -53,15 +53,20 @@ function createBuffer(pdfPath, thumbnailPath) {
     return buffer;
 }
 
-async function getPreview(filePath) {
+async function getPreview(filePath, puppeteerBrowser) {
     
     try {
         const fileName = filePath.slice(filePath.lastIndexOf(path.sep) + 1);
-        let data = await word2pdf(filePath);
-        console.log(data)
-        let pdfPath = path.join(__dirname, '../src/assets', `${fileName.replace(/\.[^/.]+$/, "")}.pdf`);
+        let pdfPath = path.join(__dirname, '../../tmp', `${fileName.replace(/\.[^/.]+$/, "")}.pdf`);
+
+        let results = await mammoth.convertToHtml({path: filePath});
+        let html = results.value;
         let imgPath = `${pdfPath.replace(/\.pdf$/, '')}-1.jpg`;
-        fs.writeFileSync(pdfPath, data);
+
+        const page = await puppeteerBrowser.newPage();
+        await page.setContent(html, {waitUntil: "load"})
+        await page.pdf({path: pdfPath, format: 'A4'});
+        // fs.writeFileSync(pdfPath, data);
         let opts = {
             format: 'jpeg',
             out_dir: path.dirname(pdfPath),

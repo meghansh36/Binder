@@ -93,3 +93,8 @@
   .preview-img {
     border-radius: 7px;
   }
+
+  .file-footer {
+    display: flex;
+    justify-content: space-between;
+  }

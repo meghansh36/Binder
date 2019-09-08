@@ -13,11 +13,14 @@ export class FileComponent implements OnInit {
   imageToShow: any;
   showPreview = false;
   timer: NodeJS.Timer;
+  LMDate: string;
   constructor(private systemService: SystemService, private cd: ChangeDetectorRef) { }
   
   ngOnInit() {
     //show loader
     //call generate preview function
+    let date = new Date(this.file["stat"].mtimeMs);
+    this.LMDate = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`
     this.generateFilePreview();
   }
   
@@ -39,6 +42,10 @@ export class FileComponent implements OnInit {
     this.imageToShow = data;
     this.showPreview = true;
     this.cd.detectChanges();
+  }
+
+  openFile() {
+    this.systemService.openFile(this.file['filename'])
   }
 
 }
