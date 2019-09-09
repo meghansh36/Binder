@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { SystemService } from '../services/system.service';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { RenameSheetComponent } from '../rename-sheet/rename-sheet.component';
 
 @Component({
   selector: 'file',
@@ -17,7 +19,7 @@ export class FileComponent implements OnInit {
   timer: NodeJS.Timer;
   LMDate: string;
   visible = true;
-  constructor(private systemService: SystemService, private cd: ChangeDetectorRef) { }
+  constructor(private systemService: SystemService, private cd: ChangeDetectorRef, private _bottomSheet: MatBottomSheet) { }
   
   ngOnInit() {
     //show loader
@@ -66,6 +68,19 @@ export class FileComponent implements OnInit {
 
   delete() {
     this.systemService.delete(this.file["filename"], this);
+  }
+
+  rename() {
+    let i = this.file['filename'].lastIndexOf('.')+1
+    let extension = this.file['filename'].slice(i);
+    let bottomSheetRef = this._bottomSheet.open(RenameSheetComponent, {data: extension});
+
+    bottomSheetRef.afterDismissed().subscribe(data => {
+      if(data) {
+        let path = this.systemService.rename(this.file['filename'], `${data}.${extension}`);
+        this.file['filename'] = path;
+      }
+    })
   }
 
 }

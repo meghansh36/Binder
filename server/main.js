@@ -3,7 +3,7 @@ const path = require("path")
 const url = require('url')
 const systemHandler = require('./systemHandler');
 const puppeteer = require('puppeteer')
-
+const fs = require('fs')
 let browser;
 async function createWindow() {
     let win = new BrowserWindow({
@@ -49,7 +49,6 @@ ipcMain.on('get-preview', async (event, filePath, uniqueChannel) => {
 
   try {
     let buffer = await systemHandler.getPreview(filePath, browser);
-    console.log('sending back to unique channel ', uniqueChannel)
     event.reply(uniqueChannel, buffer);
   } catch (error) {
     console.log(error)
@@ -71,5 +70,15 @@ ipcMain.on('deleteSysFile', async (event, filePath, uniqueChannel) => {
   } catch (error) {
     console.log("sending failure")
     event.reply(`${uniqueChannel}-failure`)
+  }
+})
+
+ipcMain.on('renameSysFile', (event, filePath, newName) => {
+  try {
+    let newPath = filePath.slice(0, filePath.lastIndexOf(path.sep)+1) + newName
+    fs.renameSync(filePath, newPath);
+    event.returnValue = {path: newPath, success: true}
+  } catch (error) {
+    event.returnValue = {path: filePath, success: false}
   }
 })
