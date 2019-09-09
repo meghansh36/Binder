@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 
@@ -9,14 +9,10 @@ import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bott
 })
 export class RenameSheetComponent implements OnInit {
 
-  @ViewChild('renameField', {static: true}) renameField: ElementRef;
   rename = new FormControl('', [Validators.required]);
   constructor(private _bottomSheetRef: MatBottomSheetRef<RenameSheetComponent>, @Inject(MAT_BOTTOM_SHEET_DATA) public data: any) { }
 
-  ngOnInit(){
-    console.log(this.renameField)
-    this.renameField.nativeElement.focus();
-  }
+  ngOnInit(){}
 
   getErrorMessage() {
     return this.rename.hasError('required') ? 'You must enter a value' : '';

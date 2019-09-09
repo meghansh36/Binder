@@ -2,7 +2,7 @@
 <br><br><br>
 <div class="example-container">
     <mat-form-field style="width: 100%" color="accent" (keydown.enter)="close()">
-        <input matInput placeholder="Enter Filename" [formControl]="rename" required #renameField>
+        <input matInput placeholder="Enter Filename" [formControl]="rename" required autofocus>
         <mat-error *ngIf="rename.invalid">{{getErrorMessage()}}</mat-error>
         <span matSuffix>.{{data}}</span>
     </mat-form-field>
