@@ -82,3 +82,7 @@ ipcMain.on('renameSysFile', (event, filePath, newName) => {
     event.returnValue = {path: filePath, success: false}
   }
 })
+
+ipcMain.on('google-drive-login', (event) => {
+  
+})
