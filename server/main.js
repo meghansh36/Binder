@@ -2,6 +2,7 @@ const { app, BrowserWindow, ipcMain, shell } = require('electron')
 const path = require("path")
 const url = require('url')
 const systemHandler = require('./systemHandler');
+const googleLoginHandler = require('./googleLoginHandler')
 const puppeteer = require('puppeteer')
 const fs = require('fs')
 let browser;
@@ -24,6 +25,9 @@ async function createWindow() {
           slashes: true
         })
       );
+    //for testing
+
+    googleLoginHandler.login();
 
     win.webContents.openDevTools()
     win.maximize()
@@ -84,5 +88,5 @@ ipcMain.on('renameSysFile', (event, filePath, newName) => {
 })
 
 ipcMain.on('google-drive-login', (event) => {
-  
+
 })
