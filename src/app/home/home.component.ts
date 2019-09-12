@@ -44,9 +44,6 @@ export class HomeComponent implements OnInit {
   }
 
   receivedSystemFiles(files: Array<object>) {
-
-    // this.systemFiles.push(files[0]);
-    // this.systemFiles.push(files[1]);
     this.systemFiles = files;
     console.log(this.systemFiles);
     this.cd.detectChanges();
