@@ -12,6 +12,7 @@ import { DriveService } from '../services/drive.service';
 export class HomeComponent implements OnInit {
 
   systemFiles = [];
+  googleDriveLogInStatus: boolean;
   constructor(private systemService: SystemService, private cd: ChangeDetectorRef, private driveService: DriveService) { }
 
 
@@ -25,9 +26,17 @@ export class HomeComponent implements OnInit {
     this.fetchSystemFiles();
   }
 
+  googleLogin() {
+    this.driveService.googleLogin();
+    this.driveService.googleLoginEvent.subscribe(success => {
+      if (success) {
+        this.googleDriveLogInStatus = true;
+      }
+    });
+  }
+
   checkGoogleLogin() {
-    console.log('calling check login drive service');
-    this.driveService.checkGoogleLogin();
+    this.googleDriveLogInStatus = this.driveService.checkGoogleLogin() && false;
   }
 
   fetchSystemFiles() {

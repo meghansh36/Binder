@@ -101,9 +101,10 @@ ipcMain.on('check-google-login', async (event) => {
 ipcMain.on('google-drive-login', async (event) => {
   try {
     await googleLoginHandler.login();
-    event.returnValue = true;
+    event.reply('google-login-response', true)
   } catch (error) {
     console.log('login failed');
-    event.returnValue = false;
+    event.reply('google-login-response', false)
+
   }
 })

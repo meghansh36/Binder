@@ -20,7 +20,7 @@ async function login() {
           value: tokens.data.access_token,
           domain: 'localhost',
           path: '/',
-          expirationDate: Number(Date.now()) + 3600000,
+          expirationDate: Number(Date.now())/1000 + 3600,
           httpOnly: true,
           secure: false
         });
@@ -34,7 +34,7 @@ async function login() {
           value: tokens.data.refresh_token,
           domain: 'localhost',
           path: '/',
-          expirationDate: Number(aYearFromNow.getTime()),
+          expirationDate: Number(aYearFromNow.getTime())/1000,
           httpOnly: true,
           secure: false
         });
@@ -114,7 +114,7 @@ async function checkLogin() {
 
 async function checkAndGenerateToken(refresh_token) {
   let cookie = await session.defaultSession.cookies.get({name: 'access_token', url: `${proxyUrl}`});
-
+  console.log(cookie)
   if(cookie.length === 0) {
 
     const newAccessToken = await axios.get(`${proxyUrl}/fetchNewAccessToken`, {
@@ -129,12 +129,12 @@ async function checkAndGenerateToken(refresh_token) {
       value: newAccessToken.data.access_token,
       domain: 'localhost',
       path: '/',
-      expirationDate: Number(Date.now()) + 3600000,
+      expirationDate: Number(Date.now())/1000 + 3600,
       httpOnly: true,
       secure: false
     });
   }
-  
+
   return true;
 }
 
