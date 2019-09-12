@@ -25,9 +25,6 @@ async function createWindow() {
           slashes: true
         })
       );
-    //for testing
-
-    googleLoginHandler.login();
 
     win.webContents.openDevTools()
     win.maximize()
@@ -88,5 +85,6 @@ ipcMain.on('renameSysFile', (event, filePath, newName) => {
 })
 
 ipcMain.on('google-drive-login', (event) => {
-
+  googleLoginHandler.login()
+  
 })

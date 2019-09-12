@@ -19,13 +19,18 @@ async function login() {
           name: 'access_token',
           value: tokens.data.access_token,
           httpOnly: true,
+          expirationDate: Number(Date.now()) + 3600000
         });
+
+        var aYearFromNow = new Date();
+        aYearFromNow.setFullYear(aYearFromNow.getFullYear() + 1);
 
         session.defaultSession.cookies.set({
           url: `${proxyUrl}`,
           name: 'refresh_token',
           value: tokens.data.refresh_token,
           httpOnly: true,
+          expirationDate: Number(aYearFromNow.getTime())
         });
         
         
