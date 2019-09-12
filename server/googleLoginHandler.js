@@ -6,7 +6,7 @@ const qs = require('querystring');
 const GOOGLE_AUTHORIZATION_URL = 'https://accounts.google.com/o/oauth2/v2/auth'
 
 const proxyUrl = 'http://localhost:3000'
-
+const cookieUrl = 'http://localhost/'
 async function login() {
 
     try {
@@ -14,27 +14,35 @@ async function login() {
         const code = await loginPopup(secret.data);
         console.log('sending request')
         const tokens = await axios.post(`${proxyUrl}/fetchAccessTokens`, {code});
-        session.defaultSession.cookies.set({
-          url: `${proxyUrl}`,
+        await session.defaultSession.cookies.set({
+          url: `${cookieUrl}`,
           name: 'access_token',
           value: tokens.data.access_token,
+          domain: 'localhost',
+          path: '/',
+          expirationDate: Number(Date.now()) + 3600000,
           httpOnly: true,
-          expirationDate: Number(Date.now()) + 3600000
+          secure: false
         });
 
         var aYearFromNow = new Date();
         aYearFromNow.setFullYear(aYearFromNow.getFullYear() + 1);
 
-        session.defaultSession.cookies.set({
-          url: `${proxyUrl}`,
+        await session.defaultSession.cookies.set({
+          url: `${cookieUrl}`,
           name: 'refresh_token',
           value: tokens.data.refresh_token,
+          domain: 'localhost',
+          path: '/',
+          expirationDate: Number(aYearFromNow.getTime()),
           httpOnly: true,
-          expirationDate: Number(aYearFromNow.getTime())
+          secure: false
         });
-        
+        await session.defaultSession.cookies.flushStore();
+        console.log('flushed cookies')
         
     } catch (error) {
+      console.log(error)
         throw new Error('login failed', error);
     }
 }
@@ -93,8 +101,45 @@ async function loginPopup(secret) {
      })
 }
 
+async function checkLogin() {
+  console.log('here')
+  let cookie = await session.defaultSession.cookies.get({name: 'refresh_token', url:`${proxyUrl}`});
+  //console.log(cookie)
+  if(cookie.length !== 0) {
+    return cookie[0];
+  } else {
+    throw new Error('not logged in');
+  }
+}
 
+async function checkAndGenerateToken(refresh_token) {
+  let cookie = await session.defaultSession.cookies.get({name: 'access_token', url: `${proxyUrl}`});
+
+  if(cookie.length === 0) {
+
+    const newAccessToken = await axios.get(`${proxyUrl}/fetchNewAccessToken`, {
+      headers: {Cookie: `refresh_token=${refresh_token.value};`}
+    }).catch(e => {
+      console.log(e);
+      throw new Error(false);
+    })
+    await session.defaultSession.cookies.set({
+      url: `${cookieUrl}`,
+      name: 'access_token',
+      value: newAccessToken.data.access_token,
+      domain: 'localhost',
+      path: '/',
+      expirationDate: Number(Date.now()) + 3600000,
+      httpOnly: true,
+      secure: false
+    });
+  }
+  
+  return true;
+}
 
 module.exports = {
-    login
+    login,
+    checkAndGenerateToken,
+    checkLogin
 }
