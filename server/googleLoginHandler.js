@@ -35,7 +35,7 @@ async function login() {
         
         
     } catch (error) {
-        console.log(error);
+        throw new Error('login failed', error);
     }
 }
 
@@ -57,8 +57,7 @@ async function loginPopup(secret) {
         const authURL = `${GOOGLE_AUTHORIZATION_URL}?${qs.stringify(urlParams)}`
 
         authWindow.on('closed', () => {
-            // TODO: Handle this smoothly
-            throw new Error('Auth window was closed by user')
+            reject(new Error('window closed by user'));
           })
       
           authWindow.webContents.on('will-navigate', (event, url) => {

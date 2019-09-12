@@ -84,7 +84,11 @@ ipcMain.on('renameSysFile', (event, filePath, newName) => {
   }
 })
 
-ipcMain.on('google-drive-login', (event) => {
-  googleLoginHandler.login()
-  
+ipcMain.on('google-drive-login', async (event) => {
+  try {
+    await googleLoginHandler.login();
+  } catch (error) {
+    console.log('login failed');
+    // send to ipc listener
+  }
 })
