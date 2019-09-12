@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subject } from 'rxjs';
@@ -11,7 +11,7 @@ export class DriveService {
 
   googleLoginEvent = new Subject();
   // tslint:disable-next-line: variable-name
-  constructor(private _electronService: ElectronService, private snackBar: MatSnackBar) { }
+  constructor(private _electronService: ElectronService, private snackBar: MatSnackBar, private zone: NgZone) { }
 
   checkGoogleLogin() {
     const loggedIn = this._electronService.ipcRenderer.sendSync('check-google-login');
@@ -29,7 +29,10 @@ export class DriveService {
       if (success) {
         this.googleLoginEvent.next(true);
       } else {
-        this.snackBar.open('Error in Google Login', '', {panelClass: 'failure', duration: 2000});
+        this.zone.run(() => {
+          this.snackBar.open('Error in Google Login', '', {panelClass: 'failure', duration: 2000,
+            horizontalPosition: 'center', verticalPosition: 'bottom'});
+        });
       }
     });
 

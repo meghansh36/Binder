@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
   }
 
   checkGoogleLogin() {
-    this.googleDriveLogInStatus = this.driveService.checkGoogleLogin() && false;
+    this.googleDriveLogInStatus = this.driveService.checkGoogleLogin();
   }
 
   fetchSystemFiles() {
