@@ -12,6 +12,8 @@ import { DriveService } from '../services/drive.service';
 export class HomeComponent implements OnInit {
 
   systemFiles = [];
+  driveFiles: Array<object>;
+  recentDriveFiles: Array<object>;
   googleDriveLogInStatus: boolean;
   constructor(private systemService: SystemService, private cd: ChangeDetectorRef, private driveService: DriveService) { }
 
@@ -39,6 +41,10 @@ export class HomeComponent implements OnInit {
   checkGoogleLogin() {
     this.googleDriveLogInStatus = this.driveService.checkGoogleLogin();
     this.fetchDriveFiles();
+    this.driveService.fetchDriveFilesEvent.subscribe((files: Array<object>) => {
+      this.driveFiles = files;
+      this.recentDriveFiles = this.driveFiles.slice(0, 10);
+    });
   }
 
   fetchDriveFiles() {

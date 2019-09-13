@@ -10,6 +10,7 @@ import { Subject } from 'rxjs';
 export class DriveService {
 
   googleLoginEvent = new Subject();
+  fetchDriveFilesEvent = new Subject();
   // tslint:disable-next-line: variable-name
   constructor(private _electronService: ElectronService, private snackBar: MatSnackBar, private zone: NgZone) { }
 
@@ -43,6 +44,7 @@ export class DriveService {
 
     this._electronService.ipcRenderer.on('fetch-drive-files-response-success', (event, files) => {
       console.log(files);
+      this.fetchDriveFilesEvent.next(files.data.files);
     });
 
     this._electronService.ipcRenderer.on('fetch-drive-files-response-failure', (event) => {
