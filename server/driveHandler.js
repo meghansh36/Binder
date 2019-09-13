@@ -1,14 +1,23 @@
 const googleLoginHandler = require('./googleLoginHandler');
+const axios = require('axios');
 
-function getDriveFiles() {
+async function getDriveFiles() {
     try {
-        let accessTokenFound = await googleLoginHandler.checkToken();
-        if(cookie) {
+        await googleLoginHandler.checkAndGenerateToken();
 
-        } else {
-            throw
-        }
-    } catch (error) {
+        let access_token = googleLoginHandler.getTokenCookie('access_token', googleLoginHandler.proxyUrl);
         
+        let driveFiles = await axios.get(`${googleLoginHandler.proxyUrl}/getDriveFiles`, {
+            headers: {Cookie: `access_token=${access_token.value};`}
+        })
+
+    } catch (error) {
+        throw error;
     }
+}
+
+
+module.exports = {
+    getDriveFiles,
+
 }
