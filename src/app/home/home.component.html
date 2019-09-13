@@ -10,9 +10,9 @@
             <div class="login-button-space" *ngIf="!googleDriveLogInStatus">
                 <button mat-raised-button class="login-button" (click)="googleLogin()">Login to Drive</button>
             </div>
-            <div class="recentFilesList">
+            <div class="recentFilesList" style="width: 80%;margin:auto;position: relative;">
                 <app-slider>
-                    <app-drivefile *ngFor="let file of recentDriveFiles" class="file-component" appSliderItem></app-drivefile>
+                    <app-drivefile *ngFor="let file of recentDriveFiles" class="file-component-drive" appSliderItem></app-drivefile>
                 </app-slider>
             </div>
             <!-- <div class="fileList" >

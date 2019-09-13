@@ -7,6 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DrivefileComponent implements OnInit {
 
+  // @ViewChild('trigger', {read: MatMenuTrigger, static: false}) trigger: MatMenuTrigger;
+  // // tslint:disable-next-line: no-input-rename
+  // @Input('fileInfo') file: object;
+  imageToShow: any;
+  showPreview = false;
+  timer: NodeJS.Timer;
+  LMDate: string;
+  visible = true;
   constructor() { }
 
   ngOnInit() {

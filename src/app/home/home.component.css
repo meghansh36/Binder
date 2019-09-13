@@ -16,6 +16,11 @@
     margin-right: 50px;
 }
 
+.file-component-drive {
+    position: relative;
+    margin-right: 50px;
+}
+
 .login-button-space {
     min-height: 200px;
     display: flex;

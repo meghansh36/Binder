@@ -12,19 +12,19 @@ import { RenameSheetComponent } from '../rename-sheet/rename-sheet.component';
   providers: [SystemService]
 })
 export class FileComponent implements OnInit {
-  
   @ViewChild('trigger', {read: MatMenuTrigger, static: false}) trigger: MatMenuTrigger;
-  @Input('fileInfo') file: Object;
+  // tslint:disable-next-line: no-input-rename
+  @Input('fileInfo') file: object;
   imageToShow: any;
   showPreview = false;
   timer: NodeJS.Timer;
   LMDate: string;
   visible = true;
   constructor(private systemService: SystemService, private cd: ChangeDetectorRef, private _bottomSheet: MatBottomSheet) { }
-  
+
   ngOnInit() {
-    //show loader
-    //call generate preview function
+    // show loader
+    // call generate preview function
     let date = new Date(this.file["stat"].mtimeMs);
     this.LMDate = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`
     this.generateFilePreview();
