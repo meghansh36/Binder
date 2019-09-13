@@ -5,6 +5,7 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { RenameSheetComponent } from '../rename-sheet/rename-sheet.component';
 
 @Component({
+  // tslint:disable-next-line: component-selector
   selector: 'file',
   templateUrl: './file.component.html',
   styleUrls: ['./file.component.css'],

@@ -1,0 +1,18 @@
+.slider-container {
+    display: flex;
+    flex-direction: column
+  }
+  
+  .slides {
+    display: flex;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+  }
+  .slides::-webkit-scrollbar {
+      width: 0px;
+      background: transparent;
+  }
+  .controls {
+    display: flex;
+    justify-content: center;
+  }

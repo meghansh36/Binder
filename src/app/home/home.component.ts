@@ -44,6 +44,7 @@ export class HomeComponent implements OnInit {
     this.driveService.fetchDriveFilesEvent.subscribe((files: Array<object>) => {
       this.driveFiles = files;
       this.recentDriveFiles = this.driveFiles.slice(0, 10);
+      this.cd.detectChanges();
     });
   }
 

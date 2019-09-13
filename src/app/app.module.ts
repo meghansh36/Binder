@@ -18,14 +18,20 @@ import { RenameSheetComponent } from './rename-sheet/rename-sheet.component';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input'
+import { MatInputModule } from '@angular/material/input';
+import { SliderComponent } from './slider/slider.component';
+import { DrivefileComponent } from './drivefile/drivefile.component';
+import { SliderItemDirective } from './slider-item.directive'
 @NgModule({
   declarations: [
     AppComponent,
     FileComponent,
     HomeComponent,
     FileNamePipe,
-    RenameSheetComponent
+    RenameSheetComponent,
+    SliderComponent,
+    DrivefileComponent,
+    SliderItemDirective
   ],
   imports: [
     BrowserModule,
