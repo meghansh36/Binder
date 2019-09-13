@@ -113,6 +113,7 @@ async function checkLogin() {
 }
 
 async function getTokenCookie(name, url) {
+
   let cookie = await session.defaultSession.cookies.get({name, url});
   if (cookie.length === 0)
     return undefined;
@@ -131,7 +132,7 @@ async function checkAndGenerateToken() {
 
 
 async function checkToken() {
-  let cookie = await getTokenCookie('access_token', proxyUrl)
+  let cookie = await getTokenCookie('access_token', cookieUrl)
   console.log(cookie)
   if(cookie) {
     return true;
@@ -140,12 +141,12 @@ async function checkToken() {
 }
 
 async function generateToken() {
-  let cookie = await getTokenCookie('refresh_token', proxyUrl)
+  let cookie = await getTokenCookie('refresh_token', cookieUrl)
   if(cookie) {
 
     try {
       const newAccessToken = await axios.get(`${proxyUrl}/fetchNewAccessToken`, {
-        headers: {Cookie: `refresh_token=${cookie[0].value};`}
+        headers: {Cookie: `refresh_token=${cookie.value};`}
       })
   
       await session.defaultSession.cookies.set({
@@ -174,5 +175,6 @@ module.exports = {
     checkLogin,
     getTokenCookie,
     proxyUrl,
+    cookieUrl,
     checkAndGenerateToken
 }

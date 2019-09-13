@@ -2,7 +2,8 @@ const { app, BrowserWindow, ipcMain, shell } = require('electron')
 const path = require("path")
 const url = require('url')
 const systemHandler = require('./systemHandler');
-const googleLoginHandler = require('./googleLoginHandler')
+const googleLoginHandler = require('./googleLoginHandler');
+const driveHandler = require('./driveHandler');
 const puppeteer = require('puppeteer')
 const fs = require('fs')
 let browser;
@@ -110,5 +111,12 @@ ipcMain.on('google-drive-login', async (event) => {
 })
 
 ipcMain.on('fetch-drive-files', async (event) => {
-
+  console.log('got ipc event')
+  try {
+    let files = await driveHandler.getDriveFiles();
+    event.reply('fetch-drive-files-response-success', files);
+  } catch (error) {
+    console.log(error);
+    event.reply('fetch-drive-files-response-failure');
+  }
 })

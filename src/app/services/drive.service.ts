@@ -40,5 +40,16 @@ export class DriveService {
 
   fetchDriveFiles() {
     this._electronService.ipcRenderer.send('fetch-drive-files');
+
+    this._electronService.ipcRenderer.on('fetch-drive-files-response-success', (event, files) => {
+      console.log(files);
+    });
+
+    this._electronService.ipcRenderer.on('fetch-drive-files-response-failure', (event) => {
+      this.zone.run(() => {
+        this.snackBar.open('Error in Fetching Files', '', {panelClass: 'failure', duration: 2000,
+          horizontalPosition: 'center', verticalPosition: 'bottom'});
+      });
+    });
   }
 }

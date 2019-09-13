@@ -31,16 +31,18 @@ export class HomeComponent implements OnInit {
     this.driveService.googleLoginEvent.subscribe(success => {
       if (success) {
         this.googleDriveLogInStatus = true;
+        this.fetchDriveFiles();
       }
     });
   }
 
   checkGoogleLogin() {
     this.googleDriveLogInStatus = this.driveService.checkGoogleLogin();
+    this.fetchDriveFiles();
   }
 
   fetchDriveFiles() {
-    
+    this.driveService.fetchDriveFiles();
   }
 
   fetchSystemFiles() {
