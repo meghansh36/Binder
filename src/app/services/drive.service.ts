@@ -25,7 +25,7 @@ export class DriveService {
   googleLogin() {
     this._electronService.ipcRenderer.send('google-drive-login');
 
-    this._electronService.ipcRenderer.on('google-login-response', (event, success) => {
+    this._electronService.ipcRenderer.once('google-login-response', (event, success) => {
       if (success) {
         this.googleLoginEvent.next(true);
       } else {
@@ -36,5 +36,9 @@ export class DriveService {
       }
     });
 
+  }
+
+  fetchDriveFiles() {
+    this._electronService.ipcRenderer.send('fetch-drive-files');
   }
 }

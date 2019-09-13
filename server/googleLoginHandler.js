@@ -106,40 +106,73 @@ async function checkLogin() {
   let cookie = await session.defaultSession.cookies.get({name: 'refresh_token', url:`${proxyUrl}`});
   //console.log(cookie)
   if(cookie.length !== 0) {
-    return cookie[0];
+    return true;
   } else {
     throw new Error('not logged in');
   }
 }
 
-async function checkAndGenerateToken(refresh_token) {
-  let cookie = await session.defaultSession.cookies.get({name: 'access_token', url: `${proxyUrl}`});
-  console.log(cookie)
-  if(cookie.length === 0) {
+async function getTokenCookie(name, url) {
+  let cookie = await session.defaultSession.cookies.get({name, url});
+  if (cookie.length === 0)
+    return undefined;
+  else return cookie[0];
+}
 
-    const newAccessToken = await axios.get(`${proxyUrl}/fetchNewAccessToken`, {
-      headers: {Cookie: `refresh_token=${refresh_token.value};`}
-    }).catch(e => {
-      console.log(e);
-      throw new Error(false);
+async function checkAndGenerateToken() {
+  let foundAccessToken = await checkToken();
+
+  if(!foundAccessToken) {
+    await generateToken().catch(e => {
+      throw e;
     })
-    await session.defaultSession.cookies.set({
-      url: `${cookieUrl}`,
-      name: 'access_token',
-      value: newAccessToken.data.access_token,
-      domain: 'localhost',
-      path: '/',
-      expirationDate: Number(Date.now())/1000 + 3600,
-      httpOnly: true,
-      secure: false
-    });
+  }
+}
+
+
+async function checkToken() {
+  let cookie = await getTokenCookie('access_token', proxyUrl)
+  console.log(cookie)
+  if(cookie) {
+    return true;
+  }
+  return false;
+}
+
+async function generateToken() {
+  let cookie = await getTokenCookie('refresh_token', proxyUrl)
+  if(cookie) {
+
+    try {
+      const newAccessToken = await axios.get(`${proxyUrl}/fetchNewAccessToken`, {
+        headers: {Cookie: `refresh_token=${cookie[0].value};`}
+      })
+  
+      await session.defaultSession.cookies.set({
+        url: `${cookieUrl}`,
+        name: 'access_token',
+        value: newAccessToken.data.access_token,
+        domain: 'localhost',
+        path: '/',
+        expirationDate: Number(Date.now())/1000 + 3600,
+        httpOnly: true,
+        secure: false
+      });
+  
+      await session.defaultSession.cookies.flushStore();
+    } catch (error) {
+      throw error;
+    }
+  } else {
+    throw new Error('refresh token not found');
   }
 
-  return true;
 }
 
 module.exports = {
     login,
-    checkAndGenerateToken,
-    checkLogin
+    checkLogin,
+    getTokenCookie,
+    proxyUrl,
+    checkAndGenerateToken
 }

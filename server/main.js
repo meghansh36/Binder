@@ -85,16 +85,16 @@ ipcMain.on('renameSysFile', (event, filePath, newName) => {
 })
 
 ipcMain.on('check-google-login', async (event) => {
-  let refresh_token = await googleLoginHandler.checkLogin().catch(e => {
+  let isLoggedIn = await googleLoginHandler.checkLogin().catch(e => {
     console.log(e);
     event.returnValue = false;
   });
 
-  await googleLoginHandler.checkAndGenerateToken(refresh_token).catch(e => {
+  await googleLoginHandler.checkAndGenerateToken().catch(e => {
     console.log(e);
-    event.returnValue.false;
-  });
-  
+    event.returnValue = false;
+  })
+
   event.returnValue = true;
 })
 
@@ -107,4 +107,8 @@ ipcMain.on('google-drive-login', async (event) => {
     event.reply('google-login-response', false)
 
   }
+})
+
+ipcMain.on('fetch-drive-files', async (event) => {
+
 })
