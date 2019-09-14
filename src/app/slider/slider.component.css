@@ -3,16 +3,33 @@
     flex-direction: column
   }
   
-  .slides {
-    display: flex;
-    overflow-x: scroll;
-    scroll-behavior: smooth;
-  }
-  .slides::-webkit-scrollbar {
-      width: 0px;
-      background: transparent;
-  }
-  .controls {
-    display: flex;
-    justify-content: center;
-  }
+.slides {
+  display: flex;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+}
+.slides::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+.controls {
+  display: flex;
+  justify-content: center;
+}
+
+.sliderBtn {
+  background: transparent;
+  font-size: -webkit-xxx-large;
+  transition: ease-in-out 0.3s;
+}
+
+.sliderBtn.leftBtn:hover {
+  background: linear-gradient(to right, rgba(0,0,0,0.2) , rgba(0,0,0,0) );  
+  text-shadow: 0px 0px 5px #fff;
+}
+
+
+.sliderBtn.rightBtn:hover {
+  background: linear-gradient(to left, rgba(0,0,0,0.2) , rgba(0,0,0,0) );  
+  text-shadow: 0px 0px 5px #fff;
+}

@@ -11,6 +11,7 @@ export class DriveService {
 
   googleLoginEvent = new Subject();
   fetchDriveFilesEvent = new Subject();
+  slidesLoadedEvent = new Subject();
   // tslint:disable-next-line: variable-name
   constructor(private _electronService: ElectronService, private snackBar: MatSnackBar, private zone: NgZone) { }
 

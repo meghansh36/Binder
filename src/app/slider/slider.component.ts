@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, QueryList, AfterContentInit,
   AfterViewInit, ContentChildren, Renderer2, ChangeDetectorRef } from '@angular/core';
 import { SliderItemDirective } from '../slider-item.directive';
+import { DriveService } from '../services/drive.service';
 
 @Component({
   selector: 'app-slider',
@@ -11,10 +12,11 @@ export class SliderComponent implements OnInit, AfterContentInit, AfterViewInit 
   @ContentChildren(SliderItemDirective, { read: ElementRef }) items: QueryList<ElementRef>;
 
   @ViewChild('slides', { read: ElementRef, static: true }) slidesContainer: ElementRef;
-  constructor(private renderer: Renderer2, private cd: ChangeDetectorRef) { }
+  constructor(private renderer: Renderer2, private cd: ChangeDetectorRef, private driveService: DriveService) { }
 
   private slidesIndex = 0;
   height: number;
+  showButtons = false;
   get currentItem(): ElementRef {
     return this.items.find((item, index) => index === this.slidesIndex);
   }
@@ -28,11 +30,18 @@ export class SliderComponent implements OnInit, AfterContentInit, AfterViewInit 
 
   ngAfterViewInit() {
     console.log('slides', this.slidesContainer);
-    setTimeout(() => {
+    this.driveService.slidesLoadedEvent.subscribe((isLoaded: boolean) => {
+      console.log('got event');
       this.height = this.slidesContainer.nativeElement.offsetHeight;
       console.log(this.height);
+      this.showButtons = true;
       this.cd.detectChanges();
-    }, 2000)
+    });
+    // setTimeout(() => {
+    //   this.height = this.slidesContainer.nativeElement.offsetHeight;
+    //   console.log(this.height);
+    //   this.cd.detectChanges();
+    // }, 2000);
   }
 
   onClickLeft() {
