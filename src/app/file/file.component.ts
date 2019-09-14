@@ -19,7 +19,6 @@ export class FileComponent implements OnInit {
   showPreview = false;
   timer: NodeJS.Timer;
   LMDate: string;
-  visible = true;
   constructor(private systemService: SystemService, private cd: ChangeDetectorRef, private _bottomSheet: MatBottomSheet) { }
 
   ngOnInit() {

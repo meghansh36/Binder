@@ -1,5 +1,5 @@
-<div class="file-wrapper" style="height:300px; width: 200px; color: white; " (click)="openFile()" *ngIf="visible">
-    <!-- <div class="file-header mat-body-strong mat-body-2">{{file.filename | fileName}}</div> -->
+<div class="file-wrapper" style="height:300px; width: 200px; color: white; " (click)="openFile()">
+    <div class="file-header mat-body-strong mat-body-2">{{file.name | fileName}}</div>
     <div class="preview-area">
             <div *ngIf="!showPreview" style="height:250px; width:200px">
                 <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
@@ -11,7 +11,7 @@
     </div>
     <div class="file-footer mat-small mat-caption">
         <span>Last Modified</span>
-        <!-- <span>{{LMDate}}</span> -->
+        <span>{{LMDate}}</span>
     </div>
 </div>
 

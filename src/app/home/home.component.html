@@ -12,7 +12,7 @@
             </div>
             <div class="recentFilesList" style="width: 80%;margin:auto;position: relative;">
                 <app-slider>
-                    <app-drivefile *ngFor="let file of recentDriveFiles" class="file-component-drive" appSliderItem></app-drivefile>
+                    <app-drivefile [fileInfo]="file" *ngFor="let file of recentDriveFiles" class="file-component-drive" appSliderItem></app-drivefile>
                 </app-slider>
             </div>
             <!-- <div class="fileList" >

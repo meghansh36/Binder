@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
 import { DriveService } from '../services/drive.service';
 
 @Component({
@@ -9,16 +9,17 @@ import { DriveService } from '../services/drive.service';
 export class DrivefileComponent implements OnInit, AfterViewInit {
 
   // @ViewChild('trigger', {read: MatMenuTrigger, static: false}) trigger: MatMenuTrigger;
-  // // tslint:disable-next-line: no-input-rename
-  // @Input('fileInfo') file: object;
+  // tslint:disable-next-line: no-input-rename
+  @Input('fileInfo') file: object;
   imageToShow: any;
   showPreview = false;
   timer: NodeJS.Timer;
   LMDate: string;
-  visible = true;
   constructor(private driveService: DriveService) { }
 
   ngOnInit() {
+    const date = new Date(this.file['modifiedByMeTime']);
+    this.LMDate = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`
   }
 
   ngAfterViewInit() {
