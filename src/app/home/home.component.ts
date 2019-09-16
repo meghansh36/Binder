@@ -7,7 +7,7 @@ import { DriveService } from '../services/drive.service';
   selector: 'home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  providers: [SystemService]
+  providers: [SystemService, DriveService]
 })
 export class HomeComponent implements OnInit {
 

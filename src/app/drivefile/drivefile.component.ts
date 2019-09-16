@@ -1,30 +1,65 @@
-import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, ChangeDetectorRef } from '@angular/core';
 import { DriveService } from '../services/drive.service';
+
+interface File {
+  name: string,
+  thumbnailLink: string,
+  hasThumbnail: boolean
+  iconLink: string,
+  id: string,
+  mimeType: string,
+  modifiedByMeTime: string,
+  webViewLink: string
+}
 
 @Component({
   selector: 'app-drivefile',
   templateUrl: './drivefile.component.html',
-  styleUrls: ['./drivefile.component.css']
+  styleUrls: ['./drivefile.component.css'],
+  providers: [DriveService]
 })
 export class DrivefileComponent implements OnInit, AfterViewInit {
 
   // @ViewChild('trigger', {read: MatMenuTrigger, static: false}) trigger: MatMenuTrigger;
   // tslint:disable-next-line: no-input-rename
-  @Input('fileInfo') file: object;
+  @Input('fileInfo') file: File;
   imageToShow: any;
   showPreview = false;
   timer: NodeJS.Timer;
   LMDate: string;
-  constructor(private driveService: DriveService) { }
+  constructor(private driveService: DriveService, private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
     const date = new Date(this.file['modifiedByMeTime']);
     this.LMDate = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`
+    this.getFilePreview();
   }
 
   ngAfterViewInit() {
     this.driveService.slidesLoadedEvent.next(true);
     this.driveService.slidesLoadedEvent.complete();
   }
+
+  getFilePreview() {
+    this.timer = setTimeout(() => {
+      this.imageToShow = this.driveService.errorImg;
+      this.showPreview = true;
+      this.cd.detectChanges();  
+    }, 80000);
+
+    this.driveService.fetchPreview(this.file.thumbnailLink);
+    this.driveService.previewEmitter.subscribe(data => {
+      this.renderPreview(data);
+    })
+  }
+
+  renderPreview(data) {
+    clearTimeout(this.timer);
+    this.imageToShow = data;
+    this.showPreview = true;
+    this.cd.detectChanges();
+  }
+
+
 
 }

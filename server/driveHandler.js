@@ -17,8 +17,18 @@ async function getDriveFiles() {
     }
 }
 
+async function fetchPreview(url) {
+    try {
+        let preview = await axios.post(`${googleLoginHandler.proxyUrl}/fetchPreview`, {url});
+        console.log(preview.data);
+        return preview;
+    } catch(e) {
+        throw e;
+    }
+}
+
 
 module.exports = {
     getDriveFiles,
-
+    fetchPreview
 }

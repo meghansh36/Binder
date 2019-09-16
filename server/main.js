@@ -111,12 +111,20 @@ ipcMain.on('google-drive-login', async (event) => {
 })
 
 ipcMain.on('fetch-drive-files', async (event) => {
-  console.log('got ipc event')
   try {
     let files = await driveHandler.getDriveFiles();
     event.reply('fetch-drive-files-response-success', files);
   } catch (error) {
     console.log(error);
     event.reply('fetch-drive-files-response-failure');
+  }
+})
+
+ipcMain.on('fetch-drive-preview', async (event, url, uniqueChannel) => {
+  try {
+    let preview = await driveHandler.fetchPreview(url);
+    event.reply(uniqueChannel, preview);
+  } catch (error) {
+    console.log(error);
   }
 })
