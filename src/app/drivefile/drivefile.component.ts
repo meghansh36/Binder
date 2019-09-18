@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit, Input, ChangeDetectorRef } from '@angular/core';
 import { DriveService } from '../services/drive.service';
+import { BaseService } from '../services/base.service';
 
 interface File {
   name: string,
@@ -27,7 +28,7 @@ export class DrivefileComponent implements OnInit, AfterViewInit {
   showPreview = false;
   timer: NodeJS.Timer;
   LMDate: string;
-  constructor(private driveService: DriveService, private cd: ChangeDetectorRef) { }
+  constructor(private driveService: DriveService, private cd: ChangeDetectorRef, private _baseService: BaseService) { }
 
   ngOnInit() {
     const date = new Date(this.file['modifiedByMeTime']);
@@ -36,8 +37,8 @@ export class DrivefileComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.driveService.slidesLoadedEvent.next(true);
-    this.driveService.slidesLoadedEvent.complete();
+    this._baseService.sliderLoadedEvent.next(true);
+    this._baseService.sliderLoadedEvent.complete();
   }
 
   getFilePreview() {
@@ -58,6 +59,10 @@ export class DrivefileComponent implements OnInit, AfterViewInit {
     this.imageToShow = data;
     this.showPreview = true;
     this.cd.detectChanges();
+  }
+
+  openFile() {
+    this.driveService.openDriveFile(this.file.webViewLink);
   }
 
 

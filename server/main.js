@@ -123,7 +123,15 @@ ipcMain.on('fetch-drive-files', async (event) => {
 ipcMain.on('fetch-drive-preview', async (event, url, uniqueChannel) => {
   try {
     let preview = await driveHandler.fetchPreview(url);
-    event.reply(uniqueChannel, preview);
+    event.reply(uniqueChannel, preview.data);
+  } catch (error) {
+    console.log(error);
+  }
+})
+
+ipcMain.on('open-drive-file', async (event, url) => {
+  try {
+    shell.openExternal(url);
   } catch (error) {
     console.log(error);
   }
