@@ -7,28 +7,39 @@ const driveHandler = require('./driveHandler');
 const puppeteer = require('puppeteer')
 const fs = require('fs')
 let browser;
+
+
 async function createWindow() {
-    let win = new BrowserWindow({
-        width: 800,
-        height: 600,
-        webPreferences: {
-            nodeIntegration: true,
-            devTools: true
-        }
-    })
+  let win = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+        nodeIntegration: true,
+        devTools: true
+    }
+  })
+  
+  win.maximize()
+  let L0 = './node_modules/puppeteer/.local-chromium';
+  let L1 = path.join(L0, fs.readdirSync(L0)[0]);
+  let L2 = path.join(L1, fs.readdirSync(L1)[0]);
 
-  browser = await puppeteer.launch({executablePath: './node_modules/puppeteer/.local-chromium/win64-674921/chrome-win/chrome.exe'});
+  switch(process.platform){
+    case 'win32': browser = await puppeteer.launch({executablePath: `${L2}/chrome.exe`}); break;
+    case 'linux': browser = await puppeteer.launch({executablePath: `${L2}/chrome`}); break;
+    case 'darwin': browser = await puppeteer.launch({executablePath: `${L2}/Chromium.app`}); break;
+    default: throw new Error('platform not supported');
+  }
     
-    win.loadURL(
-        url.format({
-          pathname: path.join(__dirname, `../dist/foxbat/index.html`),
-          protocol: "file:",
-          slashes: true
-        })
-      );
+  win.loadURL(
+      url.format({
+        pathname: path.join(__dirname, `../dist/foxbat/index.html`),
+        protocol: "file:",
+        slashes: true
+      })
+    );
 
-    win.webContents.openDevTools()
-    win.maximize()
+  win.webContents.openDevTools()
   win.on('closed', async () => {
     win = null
     await browser.close();

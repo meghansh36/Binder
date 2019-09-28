@@ -1,6 +1,7 @@
-import { Component, OnInit, AfterViewInit, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { DriveService } from '../services/drive.service';
 import { BaseService } from '../services/base.service';
+import { MatMenuTrigger } from '@angular/material/menu';
 
 interface File {
   name: string,
@@ -21,7 +22,7 @@ interface File {
 })
 export class DrivefileComponent implements OnInit, AfterViewInit {
 
-  // @ViewChild('trigger', {read: MatMenuTrigger, static: false}) trigger: MatMenuTrigger;
+  @ViewChild('trigger', {read: MatMenuTrigger, static: false}) trigger: MatMenuTrigger;
   // tslint:disable-next-line: no-input-rename
   @Input('fileInfo') file: File;
   imageToShow: any;
@@ -65,6 +66,14 @@ export class DrivefileComponent implements OnInit, AfterViewInit {
     this.driveService.openDriveFile(this.file.webViewLink);
   }
 
+  openMenu(event) {
+    this.trigger.openMenu();
+    event.stopPropagation();
+  }
+
+  dismissMenu() {
+    this.trigger.closeMenu();
+  }
 
 
 }
