@@ -2,6 +2,8 @@ import { Component, OnInit, AfterViewInit, Input, ChangeDetectorRef, ViewChild }
 import { DriveService } from '../services/drive.service';
 import { BaseService } from '../services/base.service';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { RenameSheetComponent } from '../rename-sheet/rename-sheet.component';
 
 interface File {
   name: string,
@@ -29,7 +31,8 @@ export class DrivefileComponent implements OnInit, AfterViewInit {
   showPreview = false;
   timer: NodeJS.Timer;
   LMDate: string;
-  constructor(private driveService: DriveService, private cd: ChangeDetectorRef, private _baseService: BaseService) { }
+  constructor(private driveService: DriveService, private cd: ChangeDetectorRef, private _baseService: BaseService, 
+    private _bottomSheet: MatBottomSheet) { }
 
   ngOnInit() {
     const date = new Date(this.file['modifiedByMeTime']);
@@ -64,6 +67,29 @@ export class DrivefileComponent implements OnInit, AfterViewInit {
 
   openFile() {
     this.driveService.openDriveFile(this.file.webViewLink);
+  }
+
+  rename() {
+    let bottomSheetRef: MatBottomSheetRef;
+    let extension: string;
+
+    if(this.file.mimeType === "application/vnd.google-apps.document") {
+      bottomSheetRef = this._bottomSheet.open(RenameSheetComponent);
+    } else {
+      let i = this.file.name.lastIndexOf('.')+1
+      extension = this.file.name.slice(i);
+      bottomSheetRef = this._bottomSheet.open(RenameSheetComponent, {data: extension});
+    }
+
+    bottomSheetRef.afterDismissed().subscribe(data => {
+      if(data) {
+        this.file.mimeType === "application/vnd.google-apps.document" ? this.driveService.renameFile(this.file.id, this.file.name ,data) : this.driveService.renameFile(this.file.id, this.file.name ,`${data}.${extension}`);
+        
+        this.driveService.renameEmitter.subscribe((filename: string) => {
+          this.file.name = filename;
+        })
+      }
+    })
   }
 
   openMenu(event) {

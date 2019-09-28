@@ -1,13 +1,13 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
 import { Subject } from 'rxjs';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { BaseService } from './base.service';
 
 
 @Injectable()
 export class SystemService {
   // tslint:disable-next-line: variable-name
-  constructor(private _electronService: ElectronService, private snackBar: MatSnackBar, private zone: NgZone) { }
+  constructor(private _electronService: ElectronService, private baseService: BaseService) { }
 
   public systemFileEmitter = new Subject();
   public previewEmitter = new Subject();
@@ -81,35 +81,26 @@ export class SystemService {
     this._electronService.ipcRenderer.send('deleteSysFile', filePath, uniqueChannel);
 
     this._electronService.ipcRenderer.once(`${uniqueChannel}-success`, (event) => {
-      this.zone.run(() => {
-        this.snackBar.open('File Deleted Successfully', '', {panelClass: 'success', duration: 2000, horizontalPosition: 'center',
-      verticalPosition: 'bottom'});
-        file.visible = false;
+      this.baseService.showSnackBar('File Deleted SuccessFully', 'success');
+      file.visible = false;
       });
-    });
 
     this._electronService.ipcRenderer.once(`${uniqueChannel}-failure`, (event) => {
-      this.zone.run(() => {
-        this.snackBar.open('Error in Deleting File', '', {panelClass: 'failure', duration: 2000, horizontalPosition: 'center',
-      verticalPosition: 'bottom'});
-      });
+      this.baseService.showSnackBar('Error in Deleting File', 'failure');
+      
     });
   }
 
   rename(filePath, newName) {
     const response = this._electronService.ipcRenderer.sendSync('renameSysFile', filePath, newName);
     if (response.success) {
-      this.zone.run(() => {
-        this.snackBar.open('File Renamed Successfully', '', {panelClass: 'success', duration: 2000, horizontalPosition: 'center',
-      verticalPosition: 'bottom'});
-      });
+      this.baseService.showSnackBar('File Renamed Successfully', 'success')
+
       return response.path;
 
     } else {
-      this.zone.run(() => {
-        this.snackBar.open('Error in Renaming File', '', {panelClass: 'failure', duration: 2000, horizontalPosition: 'center',
-      verticalPosition: 'bottom'});
-      });
+      this.baseService.showSnackBar('Error in Renaming File', 'failure')
+
       return response.path;
     }
   }

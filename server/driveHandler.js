@@ -25,15 +25,29 @@ async function fetchPreview(url) {
         let preview = await axios.post(`${googleLoginHandler.proxyUrl}/fetchPreview`, {url}, {
             headers: {Cookie: `access_token=${access_token.value};`}
         });
-        // console.log(preview.data);
         return preview;
     } catch(e) {
         throw e;
     }
 }
 
+async function rename(id, newName) {
+    try {
+        await googleLoginHandler.checkAndGenerateToken();
+
+        let access_token = await googleLoginHandler.getTokenCookie('access_token', googleLoginHandler.cookieUrl);
+
+        let res = await axios.post(`${googleLoginHandler.proxyUrl}/renameFile`, {id, newName}, {
+            headers: {Cookie: `access_token=${access_token.value};`}
+        })
+    } catch(e) {
+        throw e;    
+    }
+}
+
 
 module.exports = {
     getDriveFiles,
-    fetchPreview
+    fetchPreview,
+    rename
 }

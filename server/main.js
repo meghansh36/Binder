@@ -147,3 +147,13 @@ ipcMain.on('open-drive-file', async (event, url) => {
     console.log(error);
   }
 })
+
+ipcMain.on('rename-drive-file', async (event, id, newName) => {
+  try {
+    await driveHandler.rename(id, newName);
+    event.reply('rename-drive-file-success', true)
+  } catch (error) {
+    console.log(error);
+    event.reply('rename-drive-file-failure', false)
+  }
+})
