@@ -1,0 +1,970 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>foxbat documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">foxbat documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Injectables</li>
+  <li>SystemService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/services/system.service.ts</code>
+        </p>
+
+
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#errorImg">errorImg</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#previewEmitter">previewEmitter</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#systemFileEmitter">systemFileEmitter</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#delete">delete</a>
+                            </li>
+                            <li>
+                                <a href="#fetchSystemFiles">fetchSystemFiles</a>
+                            </li>
+                            <li>
+                                <a href="#getFilePreview">getFilePreview</a>
+                            </li>
+                            <li>
+                                <a href="#getImageData">getImageData</a>
+                            </li>
+                            <li>
+                                <a href="#getRandomKey">getRandomKey</a>
+                            </li>
+                            <li>
+                                <a href="#openFile">openFile</a>
+                            </li>
+                            <li>
+                                <a href="#rename">rename</a>
+                            </li>
+                            <li>
+                                <a href="#showInFolder">showInFolder</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(_electronService: ElectronService, baseService: <a href="../injectables/BaseService.html">BaseService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/app/services/system.service.ts:8</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>_electronService</td>
+                                                  
+                                                        <td>
+                                                                    <code>ElectronService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>baseService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/BaseService.html" target="_self" >BaseService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="delete"></a>
+                    <span class="name">
+                        <b>
+                            delete
+                        </b>
+                        <a href="#delete"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>delete(filePath, file)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="79"
+                            class="link-to-prism">src/app/services/system.service.ts:79</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>filePath</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>file</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fetchSystemFiles"></a>
+                    <span class="name">
+                        <b>
+                            fetchSystemFiles
+                        </b>
+                        <a href="#fetchSystemFiles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>fetchSystemFiles()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="19"
+                            class="link-to-prism">src/app/services/system.service.ts:19</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getFilePreview"></a>
+                    <span class="name">
+                        <b>
+                            getFilePreview
+                        </b>
+                        <a href="#getFilePreview"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getFilePreview(filePath)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="50"
+                            class="link-to-prism">src/app/services/system.service.ts:50</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>filePath</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getImageData"></a>
+                    <span class="name">
+                        <b>
+                            getImageData
+                        </b>
+                        <a href="#getImageData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getImageData(image: Blob)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="32"
+                            class="link-to-prism">src/app/services/system.service.ts:32</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>image</td>
+                                    <td>
+                                            <code>Blob</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getRandomKey"></a>
+                    <span class="name">
+                        <b>
+                            getRandomKey
+                        </b>
+                        <a href="#getRandomKey"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getRandomKey()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="28"
+                            class="link-to-prism">src/app/services/system.service.ts:28</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openFile"></a>
+                    <span class="name">
+                        <b>
+                            openFile
+                        </b>
+                        <a href="#openFile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openFile(filePath)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="71"
+                            class="link-to-prism">src/app/services/system.service.ts:71</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>filePath</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="rename"></a>
+                    <span class="name">
+                        <b>
+                            rename
+                        </b>
+                        <a href="#rename"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>rename(filePath, newName)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="94"
+                            class="link-to-prism">src/app/services/system.service.ts:94</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>filePath</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>newName</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showInFolder"></a>
+                    <span class="name">
+                        <b>
+                            showInFolder
+                        </b>
+                        <a href="#showInFolder"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>showInFolder(filePath)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="75"
+                            class="link-to-prism">src/app/services/system.service.ts:75</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>filePath</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+            <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="errorImg"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            errorImg</b>
+                            <a href="#errorImg"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>&#x27;data:image/png;base64,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&#x27;</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/services/system.service.ts:17</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="previewEmitter"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            previewEmitter</b>
+                            <a href="#previewEmitter"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new Subject()</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/services/system.service.ts:13</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="systemFileEmitter"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            systemFileEmitter</b>
+                            <a href="#systemFileEmitter"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new Subject()</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/services/system.service.ts:12</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
+import { ElectronService } from &#x27;ngx-electron&#x27;;
+import { Subject } from &#x27;rxjs&#x27;;
+import { BaseService } from &#x27;./base.service&#x27;;
+
+
+@Injectable()
+export class SystemService {
+  // tslint:disable-next-line: variable-name
+  constructor(private _electronService: ElectronService, private baseService: BaseService) { }
+
+  public systemFileEmitter &#x3D; new Subject();
+  public previewEmitter &#x3D; new Subject();
+
+
+  // tslint:disable-next-line: max-line-length
+  public errorImg &#x3D; &#x27;data:image/png;base64,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&#x27;;
+
+  fetchSystemFiles() {
+    if (this._electronService.isElectronApp) {
+      this._electronService.ipcRenderer.send(&#x27;get-system-files&#x27;);
+      this._electronService.ipcRenderer.once(&#x27;return-system-files&#x27;, (event, fileData) &#x3D;&gt; {
+        this.systemFileEmitter.next(fileData);
+      });
+    }
+  }
+
+  getRandomKey() {
+    return ( &#x27;_&#x27; + Math.random().toString(36).substr(2, 15));
+  }
+
+  getImageData(image: Blob) {
+    const reader &#x3D; new FileReader();
+
+    return new Promise((resolve, reject) &#x3D;&gt; {
+      reader.onerror &#x3D; () &#x3D;&gt; {
+        reader.abort();
+        reject(new DOMException(&#x27;Problem parsing input file.&#x27;));
+      };
+
+      reader.onload &#x3D; () &#x3D;&gt; {
+        resolve(reader.result);
+      };
+
+      reader.readAsDataURL(image);
+    });
+
+  }
+
+  getFilePreview(filePath) {
+    const uniqueChannel &#x3D; &#x60;return-preview-${this.getRandomKey()}&#x60;;
+    this._electronService.ipcRenderer.send(&#x27;get-preview&#x27;, filePath, uniqueChannel);
+
+    this._electronService.ipcRenderer.once(uniqueChannel, async (event, rawBuffer: Buffer) &#x3D;&gt; {
+
+      try {
+        const arrayBuffer &#x3D; rawBuffer.buffer.slice(rawBuffer.byteOffset, rawBuffer.byteOffset + rawBuffer.byteLength);
+
+        const blob &#x3D; new Blob([arrayBuffer as BlobPart], {type: &#x27;image/jpeg&#x27;});
+
+        const data &#x3D; await this.getImageData(blob);
+        this.previewEmitter.next(data);
+        // this._electronService.ipcRenderer.
+
+      } catch (error) {
+        console.log(error);
+      }
+    });
+  }
+
+  openFile(filePath) {
+    this._electronService.ipcRenderer.send(&#x27;openSysFile&#x27;, filePath);
+  }
+
+  showInFolder(filePath) {
+    this._electronService.ipcRenderer.send(&#x27;showSysFile&#x27;, filePath);
+  }
+
+  delete(filePath, file) {
+    const uniqueChannel &#x3D; &#x60;delete-${this.getRandomKey()}&#x60;;
+    this._electronService.ipcRenderer.send(&#x27;deleteSysFile&#x27;, filePath, uniqueChannel);
+
+    this._electronService.ipcRenderer.once(&#x60;${uniqueChannel}-success&#x60;, (event) &#x3D;&gt; {
+      this.baseService.showSnackBar(&#x27;File Deleted SuccessFully&#x27;, &#x27;success&#x27;);
+      file.visible &#x3D; false;
+      });
+
+    this._electronService.ipcRenderer.once(&#x60;${uniqueChannel}-failure&#x60;, (event) &#x3D;&gt; {
+      this.baseService.showSnackBar(&#x27;Error in Deleting File&#x27;, &#x27;failure&#x27;);
+      
+    });
+  }
+
+  rename(filePath, newName) {
+    const response &#x3D; this._electronService.ipcRenderer.sendSync(&#x27;renameSysFile&#x27;, filePath, newName);
+    if (response.success) {
+      this.baseService.showSnackBar(&#x27;File Renamed Successfully&#x27;, &#x27;success&#x27;)
+
+      return response.path;
+
+    } else {
+      this.baseService.showSnackBar(&#x27;Error in Renaming File&#x27;, &#x27;failure&#x27;)
+
+      return response.path;
+    }
+  }
+
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'SystemService.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

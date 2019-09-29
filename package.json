@@ -10,7 +10,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "electron-build": "ng build --base-href ./ && ./node_modules/.bin/electron .",
-    "electron": "./node_modules/.bin/electron ."
+    "electron": "./node_modules/.bin/electron .",
+    "compodoc": "./node_modules/.bin/compodoc -p tsconfig.json -s -d ./docs -n Binder"
   },
   "private": true,
   "dependencies": {
@@ -43,6 +44,7 @@
     "@angular/cli": "~8.2.1",
     "@angular/compiler-cli": "~8.2.0",
     "@angular/language-service": "~8.2.0",
+    "@compodoc/compodoc": "^1.1.10",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
