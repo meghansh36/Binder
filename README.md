@@ -16,7 +16,7 @@ By default, the Binder project is configured to look for files in the E:/ drive 
 
 ## Documentation
 
-You can find the documentation at [Binder Documenation](https://meghansh36.github.io/Binder/).
+You can find the documentation at [Binder Documenation](https://meghansh36.github.io/Binder/). I will be updating the documentation with comments in the upcoming iterations
 
 ## Task Lists
 
