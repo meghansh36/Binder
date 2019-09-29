@@ -5,8 +5,8 @@ const qs = require('querystring');
 
 const GOOGLE_AUTHORIZATION_URL = 'https://accounts.google.com/o/oauth2/v2/auth'
 
-const proxyUrl = 'http://localhost:3000'
-const cookieUrl = 'http://localhost/'
+const proxyUrl = 'https://binder-v1.herokuapp.com'
+const cookieUrl = 'https://binder-v1.herokuapp.com'
 async function login() {
 
     try {
@@ -18,7 +18,7 @@ async function login() {
           url: `${cookieUrl}`,
           name: 'access_token',
           value: tokens.data.access_token,
-          domain: 'localhost',
+          domain: '.binder-v1.herokuapp.com',
           path: '/',
           expirationDate: Number(Date.now())/1000 + 3600,
           httpOnly: true,
@@ -32,7 +32,7 @@ async function login() {
           url: `${cookieUrl}`,
           name: 'refresh_token',
           value: tokens.data.refresh_token,
-          domain: 'localhost',
+          domain: '.binder-v1.herokuapp.com',
           path: '/',
           expirationDate: Number(aYearFromNow.getTime())/1000,
           httpOnly: true,
@@ -153,7 +153,7 @@ async function generateToken() {
         url: `${cookieUrl}`,
         name: 'access_token',
         value: newAccessToken.data.access_token,
-        domain: 'localhost',
+        domain: '.binder-v1.herokuapp.com',
         path: '/',
         expirationDate: Number(Date.now())/1000 + 3600,
         httpOnly: true,
