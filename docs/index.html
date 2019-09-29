@@ -31,19 +31,18 @@
                    <div class="content-data">
 
 <h1 id="binder">Binder</h1>
-<p>This project was generated with <a href="https://github.com/angular/angular-cli">Angular CLI</a> version 8.2.1.</p>
-<h2 id="development-server">Development server</h2>
-<p>Run <code>ng serve</code> for a dev server. Navigate to <code>http://localhost:4200/</code>. The app will automatically reload if you change any of the source files.</p>
-<h2 id="code-scaffolding">Code scaffolding</h2>
-<p>Run <code>ng generate component component-name</code> to generate a new component. You can also use <code>ng generate directive|pipe|service|class|guard|interface|enum|module</code>.</p>
-<h2 id="build">Build</h2>
-<p>Run <code>ng build</code> to build the project. The build artifacts will be stored in the <code>dist/</code> directory. Use the <code>--prod</code> flag for a production build.</p>
-<h2 id="running-unit-tests">Running unit tests</h2>
-<p>Run <code>ng test</code> to execute the unit tests via <a href="https://karma-runner.github.io">Karma</a>.</p>
-<h2 id="running-end-to-end-tests">Running end-to-end tests</h2>
-<p>Run <code>ng e2e</code> to execute the end-to-end tests via <a href="http://www.protractortest.org/">Protractor</a>.</p>
-<h2 id="further-help">Further help</h2>
-<p>To get more help on the Angular CLI use <code>ng help</code> or go check out the <a href="https://github.com/angular/angular-cli/blob/master/README.md">Angular CLI README</a>.</p>
+<p>A simple one stop solution for managing your word documents on local system and Google Drive. Binder uses <a href="https://angular.io">Angular 8.2.0</a> and <a href="https://electronjs.org/">Electron v6</a>.</p>
+<h2 id="running-the-project">Running the Project</h2>
+<p>Run <code>npm run build</code> to build the npm front-end. Run <code>npm run electron</code> after it to launch the electron application.</p>
+<h2 id="proxy-server">Proxy Server</h2>
+<p>To keep the Google logic confidential and secure, Binder uses a proxy server to handle all the requests related to Google Drive interaction. The proxy server is confidential and only editted by the author of this project. If you wish to make an API call to the proxy server, raise a request for it.</p>
+<h2 id="file-paths">File Paths</h2>
+<p>By default, the Binder project is configured to look for files in the E:/ drive of a windows machine. To configure your own file paths, feel free to modify the <code>./server/systemPaths.js</code> file. A feature to configure file paths from the front end is currently under development and will be releaed in future iterations.</p>
+<h2 id="documentation">Documentation</h2>
+<p>You can find the documentation at <a href="https://meghansh36.github.io/Binder/">Binder Documenation</a>.</p>
+<h2 id="task-lists">Task Lists</h2>
+<p>Head over to the Project tab of this repository to find active to-do list and raise a request if you wish to contribute.</p>
+<p>Happy Coding!!</p>
 
 
 
