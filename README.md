@@ -22,5 +22,9 @@ You can find the documentation at [Binder Documenation](https://meghansh36.githu
 
 Head over to the Project tab of this repository to find active to-do list and raise a request if you wish to contribute.
 
+## Feature Requests
+
+For making a feature request, raise an issue with `enhancement` label.
+
 Happy Coding!!
  
