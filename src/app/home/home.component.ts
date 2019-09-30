@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   /**
    * array that stores the metadata of files found on google drive
    */
-  driveFiles: Array<object>;
+  driveFiles: Array<object> = [];
 
   /**
    * array that stores top 10 recently used files

@@ -21,7 +21,9 @@ import {MatButtonModule} from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { SliderComponent } from './slider/slider.component';
 import { DrivefileComponent } from './drivefile/drivefile.component';
-import { SliderItemDirective } from './slider-item.directive'
+import { SliderItemDirective } from './slider-item.directive';
+import { FiletableComponent } from './filetable/filetable.component'
+import {MatTableModule} from '@angular/material/table';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +33,8 @@ import { SliderItemDirective } from './slider-item.directive'
     RenameSheetComponent,
     SliderComponent,
     DrivefileComponent,
-    SliderItemDirective
+    SliderItemDirective,
+    FiletableComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,8 @@ import { SliderItemDirective } from './slider-item.directive'
     MatBottomSheetModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent],

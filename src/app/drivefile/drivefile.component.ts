@@ -14,6 +14,7 @@ interface File {
   mimeType: string,
   modifiedByMeTime: string,
   webViewLink: string
+  size?: string
 }
 
 @Component({

@@ -83,34 +83,60 @@ export class FileComponent implements OnInit {
     this.cd.detectChanges();
   }
 
+  /**
+   * Opens file in compatible document editor on clicking on the file.
+   */
   openFile() {
     this.systemService.openFile(this.file['filename'])
   }
 
+  /**
+   * Opens the file menu on click.
+   * @param event : Event object
+   */
   openMenu(event) {
     this.trigger.openMenu();
     event.stopPropagation();
   }
 
+  /**
+   * Closes the menu on clicking outside of the menu
+   */
   dismissMenu() {
     this.trigger.closeMenu();
   }
 
+  /**
+   * Show the file in folder view
+   */
   showInFolder() {
     this.systemService.showInFolder(this.file['filename']);
   }
 
+  /**
+   * Delete file
+   */
   delete() {
     this.systemService.delete(this.file["filename"], this);
   }
 
+  /**
+   * Rename the system file.
+   */
   rename() {
     let i = this.file['filename'].lastIndexOf('.')+1
+    // get the extension of the file
     let extension = this.file['filename'].slice(i);
+    // open rename bottom sheet.
     let bottomSheetRef = this._bottomSheet.open(RenameSheetComponent, {data: extension});
 
+    /**
+     * Subscribe to the close event of the bottom sheet
+     */
     bottomSheetRef.afterDismissed().subscribe(data => {
+      // if the file was renamed
       if(data) {
+        // rename file
         let path = this.systemService.rename(this.file['filename'], `${data}.${extension}`);
         this.file['filename'] = path;
       }

@@ -15,10 +15,8 @@
                     <app-drivefile [fileInfo]="file" *ngFor="let file of recentDriveFiles" class="file-component-drive" appSliderItem></app-drivefile>
                 </app-slider>
             </div>
-            <!-- <div class="fileList" >
-                <file [fileInfo]="file" *ngFor="let file of driveFiles" class="file-component"></file>
-            </div> -->
-
+           
+            <filetable *ngIf="googleDriveLogInStatus && driveFiles.length > 0" [files]="driveFiles.slice(10)"></filetable>
         </div>
 
 
