@@ -1,4 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
   interface File {
     name: string,
@@ -19,19 +22,26 @@ import { Component, OnInit, Input } from '@angular/core';
   templateUrl: './filetable.component.html',
   styleUrls: ['./filetable.component.css']
 })
-export class FiletableComponent implements OnInit{
+export class FiletableComponent implements OnInit, AfterViewInit{
 
+  @ViewChild('paginator', {read: MatPaginator , static: true}) paginator: MatPaginator;
+  @ViewChild('paginator', {read:ElementRef ,static: true}) pg: ElementRef;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
   @Input() files: Array<File>;
-
+  dataSource: MatTableDataSource<File>;
   displayedColumns = ['name' , 'lastMod', 'size']
   constructor() { }
 
   ngOnInit() {
     this.files = this.files.map((file:File) => {
-      let date = new Date(file['modifiedByMeTime']);
-      let dateString = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`
 
-      file.modifiedTime = dateString;
+      let date = new Date(file['modifiedByMeTime']);
+      if(date.getDate()) {
+        
+        file.modifiedTime = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`
+      } else {
+        file.modifiedTime = '-';
+      }
 
       if(file.size) {
         let size = file.size/1000;
@@ -46,6 +56,17 @@ export class FiletableComponent implements OnInit{
 
       return file;
     });
+
+    this.dataSource = new MatTableDataSource<File>(this.files);
+    setTimeout(() => {
+      
+    });
+  }
+  
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.pg.nativeElement.click();
   }
 
 }

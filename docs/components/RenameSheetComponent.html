@@ -508,7 +508,7 @@ export class RenameSheetComponent implements OnInit {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><br><br><br><div class="example-container">    <mat-form-field style="width: 100%" color="accent" (keydown.enter)="close()">        <input matInput placeholder="Enter Filename" [formControl]="rename" required autofocus>        <mat-error *ngIf="rename.invalid">{{getErrorMessage()}}</mat-error>        <span matSuffix>.{{data}}</span>    </mat-form-field>    <button mat-flat-button color="warn" style="float: right" (click)="close()" >RENAME</button></div><br><br><br> </div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'DrivefileComponent', 'selector': 'app-drivefile'},{'name': 'FileComponent', 'selector': 'file'},{'name': 'HomeComponent', 'selector': 'home'},{'name': 'RenameSheetComponent', 'selector': 'app-rename-sheet'},{'name': 'SliderComponent', 'selector': 'app-slider'}];
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'DrivefileComponent', 'selector': 'app-drivefile'},{'name': 'FileComponent', 'selector': 'file'},{'name': 'FiletableComponent', 'selector': 'filetable'},{'name': 'HomeComponent', 'selector': 'home'},{'name': 'RenameSheetComponent', 'selector': 'app-rename-sheet'},{'name': 'SliderComponent', 'selector': 'app-slider'}];
     var DIRECTIVES = [{'name': 'SliderItemDirective', 'selector': '[appSliderItem]'}];
     var ACTUAL_COMPONENT = {'name': 'RenameSheetComponent'};
 </script>

@@ -20,3 +20,7 @@ html, body {
     background-color: #212121;
     color: #ef5350
 }
+
+.mat-tooltip-panel {
+    display: none;
+}

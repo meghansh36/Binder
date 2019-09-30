@@ -583,6 +583,11 @@
 
                         </td>
                     </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
                         <tr>
                             <td class="col-md-4">
                                     <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/home/home.component.ts:24</a></div>
@@ -731,7 +736,7 @@ export class HomeComponent implements OnInit {
   /**
    * array that stores the metadata of files found on google drive
    */
-  driveFiles: Array&lt;object&gt;;
+  driveFiles: Array&lt;object&gt; &#x3D; [];
 
   /**
    * array that stores top 10 recently used files
@@ -837,10 +842,8 @@ export class HomeComponent implements OnInit {
                     &lt;app-drivefile [fileInfo]&#x3D;&quot;file&quot; *ngFor&#x3D;&quot;let file of recentDriveFiles&quot; class&#x3D;&quot;file-component-drive&quot; appSliderItem&gt;&lt;/app-drivefile&gt;
                 &lt;/app-slider&gt;
             &lt;/div&gt;
-            &lt;!-- &lt;div class&#x3D;&quot;fileList&quot; &gt;
-                &lt;file [fileInfo]&#x3D;&quot;file&quot; *ngFor&#x3D;&quot;let file of driveFiles&quot; class&#x3D;&quot;file-component&quot;&gt;&lt;/file&gt;
-            &lt;/div&gt; --&gt;
-
+           
+            &lt;filetable *ngIf&#x3D;&quot;googleDriveLogInStatus &amp;&amp; driveFiles.length &gt; 0&quot; [files]&#x3D;&quot;driveFiles.slice(10)&quot;&gt;&lt;/filetable&gt;
         &lt;/div&gt;
 
 
@@ -925,8 +928,8 @@ export class HomeComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="wrapper">    <mat-toolbar color="warn">        <span>Binder</span>      </mat-toolbar>    <div class="file-space" style="height: 100%; background-color: rgba(0,0,0,.87)">        <div class="driveFileSpace" style="color: white">            <h1 class="mat-h1 mat-headline">Google Drive Files</h1>            <div class="login-button-space" *ngIf="!googleDriveLogInStatus">                <button mat-raised-button class="login-button" (click)="googleLogin()">Login to Drive</button>            </div>            <div class="recentFilesList" style="width: 80%;margin:auto;position: relative;">                <app-slider>                    <app-drivefile [fileInfo]="file" *ngFor="let file of recentDriveFiles" class="file-component-drive" appSliderItem></app-drivefile>                </app-slider>            </div>            <!-- <div class="fileList" >                <file [fileInfo]="file" *ngFor="let file of driveFiles" class="file-component"></file>            </div> -->        </div>        <br> <hr> <br>        <div class="wordFileSpace" style="color: white">            <h1 class="mat-h1 mat-headline">System Files</h1>            <div class="fileList" >                <file [fileInfo]="file" *ngFor="let file of systemFiles" class="file-component"></file>            </div>        </div>    </div></div></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'DrivefileComponent', 'selector': 'app-drivefile'},{'name': 'FileComponent', 'selector': 'file'},{'name': 'HomeComponent', 'selector': 'home'},{'name': 'RenameSheetComponent', 'selector': 'app-rename-sheet'},{'name': 'SliderComponent', 'selector': 'app-slider'}];
+        var COMPONENT_TEMPLATE = '<div><div class="wrapper">    <mat-toolbar color="warn">        <span>Binder</span>      </mat-toolbar>    <div class="file-space" style="height: 100%; background-color: rgba(0,0,0,.87)">        <div class="driveFileSpace" style="color: white">            <h1 class="mat-h1 mat-headline">Google Drive Files</h1>            <div class="login-button-space" *ngIf="!googleDriveLogInStatus">                <button mat-raised-button class="login-button" (click)="googleLogin()">Login to Drive</button>            </div>            <div class="recentFilesList" style="width: 80%;margin:auto;position: relative;">                <app-slider>                    <app-drivefile [fileInfo]="file" *ngFor="let file of recentDriveFiles" class="file-component-drive" appSliderItem></app-drivefile>                </app-slider>            </div>                       <filetable *ngIf="googleDriveLogInStatus && driveFiles.length > 0" [files]="driveFiles.slice(10)"></filetable>        </div>        <br> <hr> <br>        <div class="wordFileSpace" style="color: white">            <h1 class="mat-h1 mat-headline">System Files</h1>            <div class="fileList" >                <file [fileInfo]="file" *ngFor="let file of systemFiles" class="file-component"></file>            </div>        </div>    </div></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'DrivefileComponent', 'selector': 'app-drivefile'},{'name': 'FileComponent', 'selector': 'file'},{'name': 'FiletableComponent', 'selector': 'filetable'},{'name': 'HomeComponent', 'selector': 'home'},{'name': 'RenameSheetComponent', 'selector': 'app-rename-sheet'},{'name': 'SliderComponent', 'selector': 'app-slider'}];
     var DIRECTIVES = [{'name': 'SliderItemDirective', 'selector': '[appSliderItem]'}];
     var ACTUAL_COMPONENT = {'name': 'HomeComponent'};
 </script>

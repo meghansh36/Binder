@@ -17,6 +17,9 @@ interface File {
   size?: string
 }
 
+/**
+ This component is used to render file preview in recent google docs
+ */
 @Component({
   selector: 'app-drivefile',
   templateUrl: './drivefile.component.html',
@@ -25,27 +28,48 @@ interface File {
 })
 export class DrivefileComponent implements OnInit, AfterViewInit {
 
+  // trigger for menu button
   @ViewChild('trigger', {read: MatMenuTrigger, static: false}) trigger: MatMenuTrigger;
-  // tslint:disable-next-line: no-input-rename
+  /**
+   * the file metadata object
+   */
   @Input('fileInfo') file: File;
+  /**
+   * Preview image base64 string
+   */
   imageToShow: any;
+  /**
+   * whether to show proview or show loader. Initally set to show loader.
+   */
   showPreview = false;
   timer: NodeJS.Timer;
+
+  /**
+   * Last modified date string of the file
+   */
   LMDate: string;
   constructor(private driveService: DriveService, private cd: ChangeDetectorRef, private _baseService: BaseService, 
     private _bottomSheet: MatBottomSheet) { }
 
   ngOnInit() {
+    // generate date from the modified time in time string format used by google
     const date = new Date(this.file['modifiedByMeTime']);
     this.LMDate = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`
+    
     this.getFilePreview();
   }
 
+  /**
+   * Send event that slider has been loaded.
+   */
   ngAfterViewInit() {
+    // send event
     this._baseService.sliderLoadedEvent.next(true);
+    // complete the event. Hence, the slider loaded event is only captured once.
     this._baseService.sliderLoadedEvent.complete();
   }
 
+  
   getFilePreview() {
     this.timer = setTimeout(() => {
       this.imageToShow = this.driveService.errorImg;

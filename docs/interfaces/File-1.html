@@ -61,7 +61,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/drivefile/drivefile.component.ts</code>
+            <code>src/app/filetable/filetable.component.ts</code>
         </p>
 
 
@@ -94,11 +94,19 @@
                                         <a href="#modifiedByMeTime">modifiedByMeTime</a>
                                 </li>
                                 <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#modifiedTime">modifiedTime</a>
+                                </li>
+                                <li>
                                         <a href="#name">name</a>
                                 </li>
                                 <li>
                                             <span class="modifier">Optional</span>
                                         <a href="#size">size</a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#sizeString">sizeString</a>
                                 </li>
                                 <li>
                                         <a href="#thumbnailLink">thumbnailLink</a>
@@ -266,6 +274,40 @@
                         <tbody>
                                 <tr>
                                     <td class="col-md-4">
+                                        <a name="modifiedTime"></a>
+                                        <span class="name"><b>modifiedTime</b><a href="#modifiedTime"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>modifiedTime:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
                                         <a name="name"></a>
                                         <span class="name"><b>name</b><a href="#name"><span class="icon ion-ios-link"></span></a></span>
                                     </td>
@@ -301,7 +343,41 @@
                                 </tr>
                                 <tr>
                                     <td class="col-md-4">
-                                        <code>size:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                        <code>size:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="sizeString"></a>
+                                        <span class="name"><b>sizeString</b><a href="#sizeString"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>sizeString:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
 </code>
                                     </td>
                                 </tr>
@@ -388,136 +464,79 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, AfterViewInit, Input, ChangeDetectorRef, ViewChild } from &#x27;@angular/core&#x27;;
-import { DriveService } from &#x27;../services/drive.service&#x27;;
-import { BaseService } from &#x27;../services/base.service&#x27;;
-import { MatMenuTrigger } from &#x27;@angular/material/menu&#x27;;
-import { MatBottomSheet, MatBottomSheetRef } from &#x27;@angular/material/bottom-sheet&#x27;;
-import { RenameSheetComponent } from &#x27;../rename-sheet/rename-sheet.component&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, Input, ViewChild, AfterViewInit, ElementRef } from &#x27;@angular/core&#x27;;
+import { MatTableDataSource } from &#x27;@angular/material/table&#x27;;
+import { MatPaginator } from &#x27;@angular/material/paginator&#x27;;
+import { MatSort } from &#x27;@angular/material/sort&#x27;;
 
-interface File {
-  name: string,
-  thumbnailLink: string,
-  hasThumbnail: boolean
-  iconLink: string,
-  id: string,
-  mimeType: string,
-  modifiedByMeTime: string,
-  webViewLink: string
-  size?: string
-}
+  interface File {
+    name: string,
+    thumbnailLink: string,
+    hasThumbnail: boolean
+    iconLink: string,
+    id: string,
+    mimeType: string,
+    modifiedByMeTime: string,
+    webViewLink: string,
+    modifiedTime?: string,
+    size?: number,
+    sizeString?: string
+  }
 
-/**
- This component is used to render file preview in recent google docs
- */
 @Component({
-  selector: &#x27;app-drivefile&#x27;,
-  templateUrl: &#x27;./drivefile.component.html&#x27;,
-  styleUrls: [&#x27;./drivefile.component.css&#x27;],
-  providers: [DriveService]
+  selector: &#x27;filetable&#x27;,
+  templateUrl: &#x27;./filetable.component.html&#x27;,
+  styleUrls: [&#x27;./filetable.component.css&#x27;]
 })
-export class DrivefileComponent implements OnInit, AfterViewInit {
+export class FiletableComponent implements OnInit, AfterViewInit{
 
-  // trigger for menu button
-  @ViewChild(&#x27;trigger&#x27;, {read: MatMenuTrigger, static: false}) trigger: MatMenuTrigger;
-  /**
-   * the file metadata object
-   */
-  @Input(&#x27;fileInfo&#x27;) file: File;
-  /**
-   * Preview image base64 string
-   */
-  imageToShow: any;
-  /**
-   * whether to show proview or show loader. Initally set to show loader.
-   */
-  showPreview &#x3D; false;
-  timer: NodeJS.Timer;
-
-  /**
-   * Last modified date string of the file
-   */
-  LMDate: string;
-  constructor(private driveService: DriveService, private cd: ChangeDetectorRef, private _baseService: BaseService, 
-    private _bottomSheet: MatBottomSheet) { }
+  @ViewChild(&#x27;paginator&#x27;, {read: MatPaginator , static: true}) paginator: MatPaginator;
+  @ViewChild(&#x27;paginator&#x27;, {read:ElementRef ,static: true}) pg: ElementRef;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @Input() files: Array&lt;File&gt;;
+  dataSource: MatTableDataSource&lt;File&gt;;
+  displayedColumns &#x3D; [&#x27;name&#x27; , &#x27;lastMod&#x27;, &#x27;size&#x27;]
+  constructor() { }
 
   ngOnInit() {
-    // generate date from the modified time in time string format used by google
-    const date &#x3D; new Date(this.file[&#x27;modifiedByMeTime&#x27;]);
-    this.LMDate &#x3D; &#x60;${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}&#x60;
-    
-    this.getFilePreview();
-  }
+    this.files &#x3D; this.files.map((file:File) &#x3D;&gt; {
 
-  /**
-   * Send event that slider has been loaded.
-   */
-  ngAfterViewInit() {
-    // send event
-    this._baseService.sliderLoadedEvent.next(true);
-    // complete the event. Hence, the slider loaded event is only captured once.
-    this._baseService.sliderLoadedEvent.complete();
-  }
-
-  
-  getFilePreview() {
-    this.timer &#x3D; setTimeout(() &#x3D;&gt; {
-      this.imageToShow &#x3D; this.driveService.errorImg;
-      this.showPreview &#x3D; true;
-      this.cd.detectChanges();  
-    }, 80000);
-
-    this.driveService.fetchPreview(this.file.thumbnailLink);
-    this.driveService.previewEmitter.subscribe(data &#x3D;&gt; {
-      this.renderPreview(data);
-    })
-  }
-
-  renderPreview(data) {
-    clearTimeout(this.timer);
-    this.imageToShow &#x3D; data;
-    this.showPreview &#x3D; true;
-    this.cd.detectChanges();
-  }
-
-  openFile() {
-    this.driveService.openDriveFile(this.file.webViewLink);
-  }
-
-  rename() {
-    let bottomSheetRef: MatBottomSheetRef;
-    let extension: string;
-
-    if(this.file.mimeType &#x3D;&#x3D;&#x3D; &quot;application/vnd.google-apps.document&quot;) {
-      bottomSheetRef &#x3D; this._bottomSheet.open(RenameSheetComponent);
-    } else {
-      let i &#x3D; this.file.name.lastIndexOf(&#x27;.&#x27;)+1
-      extension &#x3D; this.file.name.slice(i);
-      bottomSheetRef &#x3D; this._bottomSheet.open(RenameSheetComponent, {data: extension});
-    }
-
-    bottomSheetRef.afterDismissed().subscribe(data &#x3D;&gt; {
-      if(data) {
-        this.file.mimeType &#x3D;&#x3D;&#x3D; &quot;application/vnd.google-apps.document&quot; ? this.driveService.renameFile(this.file.id, this.file.name ,data) : this.driveService.renameFile(this.file.id, this.file.name ,&#x60;${data}.${extension}&#x60;);
+      let date &#x3D; new Date(file[&#x27;modifiedByMeTime&#x27;]);
+      if(date.getDate()) {
         
-        this.driveService.renameEmitter.subscribe((filename: string) &#x3D;&gt; {
-          this.file.name &#x3D; filename;
-        })
+        file.modifiedTime &#x3D; &#x60;${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}&#x60;
+      } else {
+        file.modifiedTime &#x3D; &#x27;-&#x27;;
       }
-    })
+
+      if(file.size) {
+        let size &#x3D; file.size/1000;
+        if(size/1000 &lt; 1) {
+          file.sizeString &#x3D; &#x60;${size.toFixed(2)} KB&#x60;;
+        } else {
+          file.sizeString &#x3D; &#x60;${(size/1000).toFixed(2)} MB&#x60;
+        }
+      } else {
+        file.sizeString &#x3D; &#x27;-&#x27;;
+      }
+
+      return file;
+    });
+
+    this.dataSource &#x3D; new MatTableDataSource&lt;File&gt;(this.files);
+    setTimeout(() &#x3D;&gt; {
+      
+    });
+  }
+  
+  ngAfterViewInit() {
+    this.dataSource.paginator &#x3D; this.paginator;
+    this.dataSource.sort &#x3D; this.sort;
+    this.pg.nativeElement.click();
   }
 
-  openMenu(event) {
-    this.trigger.openMenu();
-    event.stopPropagation();
-  }
-
-  dismissMenu() {
-    this.trigger.closeMenu();
-  }
-
-
-}</code></pre>
+}
+</code></pre>
     </div>
 </div>
 
@@ -544,7 +563,7 @@ export class DrivefileComponent implements OnInit, AfterViewInit {
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
-            var COMPODOC_CURRENT_PAGE_URL = 'File.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'File-1.html';
        </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>

@@ -55,13 +55,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/AppModule.html" data-type="entity-link">AppModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#components-links-module-AppModule-2d78a899af14fbac04a114c0d34eb24f"' : 'data-target="#xs-components-links-module-AppModule-2d78a899af14fbac04a114c0d34eb24f"' }>
+                                            'data-target="#components-links-module-AppModule-7e5bd7b532cc3572e7c4ab4e5365ca95"' : 'data-target="#xs-components-links-module-AppModule-7e5bd7b532cc3572e7c4ab4e5365ca95"' }>
                                             <span class="icon ion-md-cog"></span>
                                             <span>Components</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-AppModule-2d78a899af14fbac04a114c0d34eb24f"' :
-                                            'id="xs-components-links-module-AppModule-2d78a899af14fbac04a114c0d34eb24f"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-AppModule-7e5bd7b532cc3572e7c4ab4e5365ca95"' :
+                                            'id="xs-components-links-module-AppModule-7e5bd7b532cc3572e7c4ab4e5365ca95"' }>
                                             <li class="link">
                                                 <a href="components/AppComponent.html"
                                                     data-type="entity-link" data-context="sub-entity" data-context-id="modules">AppComponent</a>
@@ -73,6 +73,10 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                             <li class="link">
                                                 <a href="components/FileComponent.html"
                                                     data-type="entity-link" data-context="sub-entity" data-context-id="modules">FileComponent</a>
+                                            </li>
+                                            <li class="link">
+                                                <a href="components/FiletableComponent.html"
+                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">FiletableComponent</a>
                                             </li>
                                             <li class="link">
                                                 <a href="components/HomeComponent.html"
@@ -90,13 +94,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                     </li>
                                 <li class="chapter inner">
                                     <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                        'data-target="#directives-links-module-AppModule-2d78a899af14fbac04a114c0d34eb24f"' : 'data-target="#xs-directives-links-module-AppModule-2d78a899af14fbac04a114c0d34eb24f"' }>
+                                        'data-target="#directives-links-module-AppModule-7e5bd7b532cc3572e7c4ab4e5365ca95"' : 'data-target="#xs-directives-links-module-AppModule-7e5bd7b532cc3572e7c4ab4e5365ca95"' }>
                                         <span class="icon ion-md-code-working"></span>
                                         <span>Directives</span>
                                         <span class="icon ion-ios-arrow-down"></span>
                                     </div>
-                                    <ul class="links collapse" ${ isNormalMode ? 'id="directives-links-module-AppModule-2d78a899af14fbac04a114c0d34eb24f"' :
-                                        'id="xs-directives-links-module-AppModule-2d78a899af14fbac04a114c0d34eb24f"' }>
+                                    <ul class="links collapse" ${ isNormalMode ? 'id="directives-links-module-AppModule-7e5bd7b532cc3572e7c4ab4e5365ca95"' :
+                                        'id="xs-directives-links-module-AppModule-7e5bd7b532cc3572e7c4ab4e5365ca95"' }>
                                         <li class="link">
                                             <a href="directives/SliderItemDirective.html"
                                                 data-type="entity-link" data-context="sub-entity" data-context-id="modules">SliderItemDirective</a>
@@ -105,13 +109,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 </li>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#pipes-links-module-AppModule-2d78a899af14fbac04a114c0d34eb24f"' : 'data-target="#xs-pipes-links-module-AppModule-2d78a899af14fbac04a114c0d34eb24f"' }>
+                                            'data-target="#pipes-links-module-AppModule-7e5bd7b532cc3572e7c4ab4e5365ca95"' : 'data-target="#xs-pipes-links-module-AppModule-7e5bd7b532cc3572e7c4ab4e5365ca95"' }>
                                             <span class="icon ion-md-add"></span>
                                             <span>Pipes</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="pipes-links-module-AppModule-2d78a899af14fbac04a114c0d34eb24f"' :
-                                            'id="xs-pipes-links-module-AppModule-2d78a899af14fbac04a114c0d34eb24f"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="pipes-links-module-AppModule-7e5bd7b532cc3572e7c4ab4e5365ca95"' :
+                                            'id="xs-pipes-links-module-AppModule-7e5bd7b532cc3572e7c4ab4e5365ca95"' }>
                                             <li class="link">
                                                 <a href="pipes/FileNamePipe.html"
                                                     data-type="entity-link" data-context="sub-entity" data-context-id="modules">FileNamePipe</a>
@@ -163,6 +167,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                         <ul class="links collapse " ${ isNormalMode ? ' id="interfaces-links"' : 'id="xs-interfaces-links"' }>
                             <li class="link">
                                 <a href="interfaces/File.html" data-type="entity-link">File</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/File-1.html" data-type="entity-link">File</a>
                             </li>
                         </ul>
                     </li>

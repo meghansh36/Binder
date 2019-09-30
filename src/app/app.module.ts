@@ -24,6 +24,10 @@ import { DrivefileComponent } from './drivefile/drivefile.component';
 import { SliderItemDirective } from './slider-item.directive';
 import { FiletableComponent } from './filetable/filetable.component'
 import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatSortModule } from '@angular/material/sort';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +53,10 @@ import {MatTableModule} from '@angular/material/table';
     ReactiveFormsModule,
     MatInputModule,
     MatButtonModule,
-    MatTableModule
+    MatTableModule,
+    MatPaginatorModule,
+    MatTooltipModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent],
