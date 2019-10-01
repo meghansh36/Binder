@@ -12,7 +12,7 @@ To keep the Google logic confidential and secure, Binder uses a proxy server to 
 
 ## File Paths
 
-By default, the Binder project is configured to look for files in the E:/ drive of a windows machine. To configure your own file paths, feel free to modify the `./server/systemPaths.js` file. A feature to configure file paths from the front end is currently under development and will be releaed in future iterations.
+By default, the Binder project is configured to look for files in the Desktop folder. To configure your own file paths, feel free to modify the `./server/systemPaths.js` file. A feature to configure file paths from the front end is currently under development and will be releaed in future iterations.
 
 ## Documentation
 
