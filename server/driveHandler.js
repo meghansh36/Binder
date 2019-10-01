@@ -6,7 +6,6 @@ async function getDriveFiles() {
         await googleLoginHandler.checkAndGenerateToken();
 
         let access_token = await googleLoginHandler.getTokenCookie('access_token', googleLoginHandler.cookieUrl);
-        console.log('ACT', access_token);
         let driveFiles = await axios.get(`${googleLoginHandler.proxyUrl}/getDriveFiles`, {
             headers: {Cookie: `access_token=${access_token.value};`}
         })

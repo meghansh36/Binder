@@ -39,6 +39,7 @@ function findFiles() {
     const ignore = ['node_modules', '$RECYCLE.BIN', 'System Volume Information', '.git'];
     let results = [];
     sysPaths.forEach(val => {
+        console.log(val);
         results = results.concat(getFiles(val, filter, ignore));
     });
 

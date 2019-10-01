@@ -177,7 +177,6 @@ async function checkAndGenerateToken() {
  */
 async function checkToken() {
   let cookie = await getTokenCookie('access_token', cookieUrl)
-  console.log(cookie)
   if(cookie) {
     return true;
   }
