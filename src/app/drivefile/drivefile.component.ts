@@ -95,26 +95,10 @@ export class DrivefileComponent implements OnInit, AfterViewInit {
   }
 
   rename() {
-    let bottomSheetRef: MatBottomSheetRef;
-    let extension: string;
-
-    if(this.file.mimeType === "application/vnd.google-apps.document") {
-      bottomSheetRef = this._bottomSheet.open(RenameSheetComponent);
-    } else {
-      let i = this.file.name.lastIndexOf('.')+1
-      extension = this.file.name.slice(i);
-      bottomSheetRef = this._bottomSheet.open(RenameSheetComponent, {data: extension});
-    }
-
-    bottomSheetRef.afterDismissed().subscribe(data => {
-      if(data) {
-        this.file.mimeType === "application/vnd.google-apps.document" ? this.driveService.renameFile(this.file.id, this.file.name ,data) : this.driveService.renameFile(this.file.id, this.file.name ,`${data}.${extension}`);
-        
-        this.driveService.renameEmitter.subscribe((filename: string) => {
-          this.file.name = filename;
-        })
-      }
-    })
+    this.driveService.renameFile(this.file);
+    this.driveService.renameEmitter.subscribe((filename: string) => {
+      this.file.name = filename;
+    });
   }
 
   openMenu(event) {

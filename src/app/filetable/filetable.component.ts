@@ -2,6 +2,8 @@ import { Component, OnInit, Input, ViewChild, AfterViewInit, ElementRef } from '
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { MatMenuTrigger } from '@angular/material/menu';
+import { DriveService } from '../services/drive.service';
 
   interface File {
     name: string,
@@ -20,17 +22,26 @@ import { MatSort } from '@angular/material/sort';
 @Component({
   selector: 'filetable',
   templateUrl: './filetable.component.html',
-  styleUrls: ['./filetable.component.css']
+  styleUrls: ['./filetable.component.css'],
+  providers: [DriveService]
 })
 export class FiletableComponent implements OnInit, AfterViewInit{
 
+  /**
+   * trigger for menu button
+   */
+  @ViewChild('trigger', {read: MatMenuTrigger, static: false}) trigger: MatMenuTrigger;
+
+  
   @ViewChild('paginator', {read: MatPaginator , static: true}) paginator: MatPaginator;
   @ViewChild('paginator', {read:ElementRef ,static: true}) pg: ElementRef;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @Input() files: Array<File>;
   dataSource: MatTableDataSource<File>;
-  displayedColumns = ['name' , 'lastMod', 'size']
-  constructor() { }
+  displayedColumns = ['name' , 'lastMod', 'size', 'options']
+
+  selectedFile: File;
+  constructor(private driveService: DriveService) { }
 
   ngOnInit() {
     this.files = this.files.map((file:File) => {
@@ -68,5 +79,48 @@ export class FiletableComponent implements OnInit, AfterViewInit{
     this.dataSource.sort = this.sort;
     this.pg.nativeElement.click();
   }
+
+  /**
+   * Opens the file menu on click.
+   * @param event : Event object
+   */
+  openMenu(event, file) {
+    this.selectedFile = file;
+    this.trigger.openMenu();
+    event.stopPropagation();
+  }
+
+  /**
+   * Closes the menu on clicking outside of the menu
+   */
+  dismissMenu() {
+    console.log('dismissed')
+    this.trigger.closeMenu();
+  }
+
+  removeSelectedFile() {
+    this.selectedFile = undefined;
+  }
+
+  refreshTable() {
+    this.dataSource.paginator = this.paginator;
+  }
+
+  openFile() {
+    this.driveService.openDriveFile(this.selectedFile.webViewLink);
+    this.removeSelectedFile();
+  }
+
+  rename() {
+    let index = this.dataSource.data.indexOf(this.selectedFile);
+    this.driveService.renameFile(this.selectedFile);
+    this.driveService.renameEmitter.subscribe((filename: string) => {
+      this.selectedFile.name = filename;
+      this.dataSource.data[index] = this.selectedFile;
+      this.refreshTable();
+      this.removeSelectedFile();
+    });
+  }
+
 
 }
