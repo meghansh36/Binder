@@ -62,7 +62,7 @@ export class FileComponent implements OnInit {
     }, 80000);
 
 
-    this.systemService.getFilePreview(this.file['filename']);
+    this.systemService.getFilePreview(this.file['filePath']);
     /**
      * Subscribe to the preview emitter observable
      */
@@ -87,7 +87,7 @@ export class FileComponent implements OnInit {
    * Opens file in compatible document editor on clicking on the file.
    */
   openFile() {
-    this.systemService.openFile(this.file['filename'])
+    this.systemService.openFile(this.file['filePath'])
   }
 
   /**
@@ -110,23 +110,23 @@ export class FileComponent implements OnInit {
    * Show the file in folder view
    */
   showInFolder() {
-    this.systemService.showInFolder(this.file['filename']);
+    this.systemService.showInFolder(this.file['filePath']);
   }
 
   /**
    * Delete file
    */
   delete() {
-    this.systemService.delete(this.file["filename"], this);
+    this.systemService.delete(this.file["filePath"], this);
   }
 
   /**
    * Rename the system file.
    */
   rename() {
-    let i = this.file['filename'].lastIndexOf('.')+1
+    let i = this.file['filePath'].lastIndexOf('.')+1
     // get the extension of the file
-    let extension = this.file['filename'].slice(i);
+    let extension = this.file['filePath'].slice(i);
     // open rename bottom sheet.
     let bottomSheetRef = this._bottomSheet.open(RenameSheetComponent, {data: extension});
 
@@ -137,8 +137,9 @@ export class FileComponent implements OnInit {
       // if the file was renamed
       if(data) {
         // rename file
-        let path = this.systemService.rename(this.file['filename'], `${data}.${extension}`);
-        this.file['filename'] = path;
+        let path = this.systemService.rename(this.file['filePath'], `${data}.${extension}`);
+        this.file['filePath'] = path;
+        this.file['filename'] = `${data}.${extension}`
       }
     })
   }
