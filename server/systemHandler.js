@@ -15,6 +15,7 @@ function getFiles(basePath, filter, ignore) {
 
     for (var i = 0; i < files.length; i++) {
         var filename = path.join(basePath, files[i]);
+        var file = files[i];
         if (ignore.indexOf(files[i]) >= 0)
             continue;
         var stat = fs.statSync(filename);
@@ -25,7 +26,7 @@ function getFiles(basePath, filter, ignore) {
             var ext = filename.slice(extIndex);
             if (filter.indexOf(ext) >= 0) {
                 results.push({
-                    filename, stat
+                    file, filename, stat
                 })
             }
         }
