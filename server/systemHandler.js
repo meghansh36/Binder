@@ -14,18 +14,19 @@ function getFiles(basePath, filter, ignore) {
     var files = fs.readdirSync(basePath);
 
     for (var i = 0; i < files.length; i++) {
-        var filename = path.join(basePath, files[i]);
+        var filePath = path.join(basePath, files[i]);
+        var filename = files[i];
         if (ignore.indexOf(files[i]) >= 0)
             continue;
-        var stat = fs.statSync(filename);
+        var stat = fs.statSync(filePath);
         if (stat.isDirectory()) {
-            results = results.concat(getFiles(filename, filter, ignore));
+            results = results.concat(getFiles(filePath, filter, ignore));
         } else {
-            var extIndex = filename.lastIndexOf('.');
-            var ext = filename.slice(extIndex);
+            var extIndex = filePath.lastIndexOf('.');
+            var ext = filePath.slice(extIndex);
             if (filter.indexOf(ext) >= 0) {
                 results.push({
-                    filename, stat
+                    filename, filePath, stat
                 })
             }
         }
