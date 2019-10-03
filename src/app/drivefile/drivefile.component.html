@@ -5,7 +5,7 @@
                 <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
             </div>
             <div class='img-wrapper'>
-                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Drive File Menu" class="option-icon" (click)="openMenu($event)">
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Drive File Menu" class="option-icon" (click)="openMenu($event)" [matMenuTriggerData]="{owner: file.ownedByMe}">
                     <mat-icon>more_vert</mat-icon>
                   </button>
                 <img [src]="imageToShow" class="preview-img" *ngIf="showPreview" style="height: 250px; width:200px">
@@ -23,11 +23,12 @@
 
 
 <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="openFile()">Open File</button>
-    <button mat-menu-item (click)="rename()">Rename</button>
-    <button mat-menu-item (click)="delete()">Delete</button>
-    <button mat-menu-item (click)="showInFolder()">Download</button>
-    <button mat-menu-item>Share</button>
-    <button mat-menu-item>View Details</button>
-
+    <ng-template matMenuContent let-owner="owner">
+        <button mat-menu-item (click)="openFile()">Open File</button>
+        <button mat-menu-item (click)="rename()">Rename</button>
+        <button mat-menu-item *ngIf="owner" (click)="delete()">Delete</button>
+        <button mat-menu-item (click)="showInFolder()">Download</button>
+        <button mat-menu-item>Share</button>
+        <button mat-menu-item>View Details</button>
+    </ng-template>
 </mat-menu>
