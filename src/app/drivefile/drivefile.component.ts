@@ -1,9 +1,8 @@
-import { Component, OnInit, AfterViewInit, Input, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, ChangeDetectorRef, ViewChild, Output, EventEmitter } from '@angular/core';
 import { DriveService } from '../services/drive.service';
 import { BaseService } from '../services/base.service';
 import { MatMenuTrigger } from '@angular/material/menu';
-import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
-import { RenameSheetComponent } from '../rename-sheet/rename-sheet.component';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 
 interface File {
   name: string,
@@ -28,6 +27,9 @@ interface File {
 })
 export class DrivefileComponent implements OnInit, AfterViewInit {
 
+  @Output('deleteFile') deleteOutputEvent = new EventEmitter();
+
+
   // trigger for menu button
   @ViewChild('trigger', {read: MatMenuTrigger, static: false}) trigger: MatMenuTrigger;
   /**
@@ -48,8 +50,7 @@ export class DrivefileComponent implements OnInit, AfterViewInit {
    * Last modified date string of the file
    */
   LMDate: string;
-  constructor(private driveService: DriveService, private cd: ChangeDetectorRef, private _baseService: BaseService, 
-    private _bottomSheet: MatBottomSheet) { }
+  constructor(private driveService: DriveService, private cd: ChangeDetectorRef, private _baseService: BaseService) { }
 
   ngOnInit() {
     // generate date from the modified time in time string format used by google
@@ -107,6 +108,10 @@ export class DrivefileComponent implements OnInit, AfterViewInit {
 
   dismissMenu() {
     this.trigger.closeMenu();
+  }
+
+  delete() {
+    this.deleteOutputEvent.emit(this.file);
   }
 
 

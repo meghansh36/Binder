@@ -47,8 +47,16 @@ export class FiletableComponent implements OnInit, AfterViewInit{
   constructor(private driveService: DriveService) { }
 
   ngOnInit() {
+  }
+  
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+    this.pg.nativeElement.click();
+  }
+  
+  ngOnChanges(changes: SimpleChanges) {
     this.files = this.files.map((file:File) => {
-
+  
       let date = new Date(file['modifiedByMeTime']);
       if(date.getDate()) {
         
@@ -56,7 +64,7 @@ export class FiletableComponent implements OnInit, AfterViewInit{
       } else {
         file.modifiedTime = '-';
       }
-
+  
       if(file.size) {
         let size = file.size/1000;
         if(size/1000 < 1) {
@@ -67,24 +75,13 @@ export class FiletableComponent implements OnInit, AfterViewInit{
       } else {
         file.sizeString = '-';
       }
-
+  
       return file;
     });
-
-    this.dataSource = new MatTableDataSource<File>(this.files);
-    setTimeout(() => {
-      
-    });
-  }
   
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    this.pg.nativeElement.click();
-  }
-
-  ngOnChanges() {
-    console.log('inside on change')
+    this.dataSource = new MatTableDataSource<File>(this.files);
+    this.refreshTable();
+    console.log('inside on change', changes)
   }
 
   /**
@@ -95,14 +92,6 @@ export class FiletableComponent implements OnInit, AfterViewInit{
     console.log('opening menu')
     this.selectedFile = file;
     event.stopPropagation();
-  }
-
-  /**
-   * Closes the menu on clicking outside of the menu
-   */
-  dismissMenu() {
-    console.log('dismissed')
-    this.trigger.closeMenu();
   }
 
   removeSelectedFile() {

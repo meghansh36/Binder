@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { SystemService } from '../services/system.service';
 import { DriveService } from '../services/drive.service';
-
+import { take } from 'rxjs/operators';
 /**
  * This component is the main home view component
  */
@@ -112,15 +112,15 @@ export class HomeComponent implements OnInit {
     const index = this.driveFiles.indexOf(file);
     console.log(index, file)
     this.driveService.delete(file.id);
-    this.driveService.deleteEmitter.subscribe(() => {
+    this.driveService.deleteEmitter.pipe(take(1)).subscribe(() => {
       if(index < 10) {
         this.recentDriveFiles.splice(index,1);
         this.recentDriveFiles.push(this.tableDriveFiles.splice(0,1)[0]);
+        this.recentDriveFiles = [...this.recentDriveFiles];
       } else {
         this.tableDriveFiles.splice(index-10,1);
-        this.tableDriveFiles = this.tableDriveFiles;
       }
-  
+      this.tableDriveFiles = [...this.tableDriveFiles];
       this.driveFiles.splice(index,1);
       console.log('after deletion', this.tableDriveFiles)
       // this.cd.detectChanges();
