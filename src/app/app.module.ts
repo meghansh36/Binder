@@ -8,7 +8,6 @@ import { HomeComponent } from './home/home.component';
 
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatMenuModule} from '@angular/material/menu';
-import { ClickOutsideModule } from 'ng-click-outside';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -28,6 +27,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { MatSortModule } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
+import { NgScrollbarModule } from 'ngx-scrollbar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +46,6 @@ import { MatIconModule } from '@angular/material/icon';
     BrowserAnimationsModule,
     NgxElectronModule,
     MatMenuModule,
-    ClickOutsideModule,
     MatSnackBarModule,
     MatFormFieldModule,
     MatBottomSheetModule,
@@ -57,7 +56,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatPaginatorModule,
     MatTooltipModule,
     MatSortModule,
-    MatIconModule
+    MatIconModule,
+    NgScrollbarModule
   ],
   providers: [],
   bootstrap: [AppComponent],

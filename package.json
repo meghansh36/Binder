@@ -31,6 +31,7 @@
     "mammoth": "^1.4.8",
     "ng-click-outside": "^5.1.1",
     "ngx-electron": "^2.1.1",
+    "ngx-scrollbar": "^6.0.0",
     "puppeteer": "^1.19.0",
     "rxjs": "~6.4.0",
     "trash": "^6.0.0",

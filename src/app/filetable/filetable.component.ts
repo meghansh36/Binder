@@ -18,7 +18,8 @@ import { DriveService } from '../services/drive.service';
     size?: number,
     sizeString?: string,
     owners: Array<object>,
-    ownedByMe: boolean
+    ownedByMe: boolean,
+    ownerName: string
   }
 
 @Component({
@@ -35,15 +36,15 @@ export class FiletableComponent implements OnInit, AfterViewInit{
   @ViewChild('trigger', {read: MatMenuTrigger, static: false}) trigger: MatMenuTrigger;
 
   
-  @ViewChild('paginator', {read: MatPaginator , static: true}) paginator: MatPaginator;
-  @ViewChild('paginator', {read:ElementRef ,static: true}) pg: ElementRef;
+  // @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  // @ViewChild('paginator', {read:ElementRef ,static: true}) pg: ElementRef;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   @Input('files') files: Array<File>;
 
   @Output('deleteFile') deleteOutputEvent = new EventEmitter();
-  dataSource: MatTableDataSource<File>;
-  displayedColumns = ['name' , 'lastMod', 'size', 'options']
+  dataSource = new MatTableDataSource<File>([]);
+  displayedColumns = ['name' , 'lastMod', 'size', 'ownedBy','options']
 
   selectedFile: File;
   constructor(private driveService: DriveService) { }
@@ -53,7 +54,8 @@ export class FiletableComponent implements OnInit, AfterViewInit{
   
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
-    this.pg.nativeElement.click();
+    // this.dataSource.paginator = this.paginator;
+    // this.pg.nativeElement.click();
   }
   
   ngOnChanges(changes: SimpleChanges) {
@@ -77,12 +79,19 @@ export class FiletableComponent implements OnInit, AfterViewInit{
       } else {
         file.sizeString = '-';
       }
+
+      if(file.ownedByMe) {
+          file.ownerName = 'You'
+      } else {
+          file.ownerName = file.owners[0]['displayName'];
+      }
   
       return file;
     });
+
   
-    this.dataSource = new MatTableDataSource<File>(this.files);
-    this.refreshTable();
+    this.dataSource.data = this.files;
+    // this.refreshTable();
     console.log('inside on change', changes)
   }
 
@@ -101,7 +110,9 @@ export class FiletableComponent implements OnInit, AfterViewInit{
   }
 
   refreshTable() {
-    this.dataSource.paginator = this.paginator;
+    // this.dataSource.paginator = this.paginator;
+    console.log(this.dataSource.paginator)
+    // this.pg.nativeElement.click();
   }
 
   openFile() {
@@ -122,6 +133,11 @@ export class FiletableComponent implements OnInit, AfterViewInit{
 
   delete() {
     this.deleteOutputEvent.emit(this.selectedFile);
+  }
+
+  debug(event) {
+    console.log(this.dataSource)
+    console.log(event)
   }
 
 
