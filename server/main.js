@@ -157,3 +157,13 @@ ipcMain.on('rename-drive-file', async (event, id, newName) => {
     event.reply('rename-drive-file-failure', false)
   }
 })
+
+ipcMain.on('delete-drive-file', async (event, id) => {
+  try {
+    await driveHandler.deleteFile(id);
+    event.reply('delete-drive-file-success', true)
+  } catch (error) {
+    console.log(error);
+    event.reply('delete-drive-file-failure', false)
+  }
+})

@@ -102,7 +102,6 @@ export class DrivefileComponent implements OnInit, AfterViewInit {
   }
 
   openMenu(event) {
-    this.trigger.openMenu();
     event.stopPropagation();
   }
 

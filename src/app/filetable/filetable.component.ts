@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, AfterViewInit, ElementRef, Output, EventEmitter, ChangeDetectionStrategy, SimpleChanges } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -23,7 +23,7 @@ import { DriveService } from '../services/drive.service';
   selector: 'filetable',
   templateUrl: './filetable.component.html',
   styleUrls: ['./filetable.component.css'],
-  providers: [DriveService]
+  providers: [DriveService],
 })
 export class FiletableComponent implements OnInit, AfterViewInit{
 
@@ -36,7 +36,10 @@ export class FiletableComponent implements OnInit, AfterViewInit{
   @ViewChild('paginator', {read: MatPaginator , static: true}) paginator: MatPaginator;
   @ViewChild('paginator', {read:ElementRef ,static: true}) pg: ElementRef;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
-  @Input() files: Array<File>;
+
+  @Input('files') files: Array<File>;
+
+  @Output('deleteFile') deleteOutputEvent = new EventEmitter();
   dataSource: MatTableDataSource<File>;
   displayedColumns = ['name' , 'lastMod', 'size', 'options']
 
@@ -80,13 +83,17 @@ export class FiletableComponent implements OnInit, AfterViewInit{
     this.pg.nativeElement.click();
   }
 
+  ngOnChanges() {
+    console.log('inside on change')
+  }
+
   /**
    * Opens the file menu on click.
    * @param event : Event object
    */
   openMenu(event, file) {
+    console.log('opening menu')
     this.selectedFile = file;
-    this.trigger.openMenu();
     event.stopPropagation();
   }
 
@@ -120,6 +127,10 @@ export class FiletableComponent implements OnInit, AfterViewInit{
       this.refreshTable();
       this.removeSelectedFile();
     });
+  }
+
+  delete() {
+    this.deleteOutputEvent.emit(this.selectedFile);
   }
 
 

@@ -44,9 +44,23 @@ async function rename(id, newName) {
     }
 }
 
+async function deleteFile(id) {
+    try {
+        await googleLoginHandler.checkAndGenerateToken();
+        let access_token = await googleLoginHandler.getTokenCookie('access_token', googleLoginHandler.cookieUrl);
+
+        let res = await axios.post(`${googleLoginHandler.proxyUrl}/deleteFile`, {id}, {
+            headers: {Cookie: `access_token=${access_token.value};`}
+        })
+    } catch(e) {
+        throw e;
+    }
+}
+
 
 module.exports = {
     getDriveFiles,
     fetchPreview,
-    rename
+    rename,
+    deleteFile
 }

@@ -16,7 +16,7 @@
                 </app-slider>
             </div>
            
-            <filetable *ngIf="googleDriveLogInStatus && driveFiles.length > 0" [files]="driveFiles.slice(10)"></filetable>
+            <filetable *ngIf="googleDriveLogInStatus && driveFiles.length > 0" [files]="tableDriveFiles" (deleteFile)="deleteDriveFile($event)"></filetable>
         </div>
 
 
@@ -29,6 +29,4 @@
         </div>
 
     </div>
-
-
 </div>

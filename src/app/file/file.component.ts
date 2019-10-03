@@ -17,7 +17,7 @@ export class FileComponent implements OnInit {
   /**
    * trigger for menu button
    */
-  @ViewChild('trigger', {read: MatMenuTrigger, static: false}) trigger: MatMenuTrigger;
+  @ViewChild('triggerFile', {read: MatMenuTrigger, static: false}) triggerFile: MatMenuTrigger;
 
   /**
    * The file metadata object for this file.
@@ -95,7 +95,7 @@ export class FileComponent implements OnInit {
    * @param event : Event object
    */
   openMenu(event) {
-    this.trigger.openMenu();
+    // this.trigger.openMenu();
     event.stopPropagation();
   }
 
@@ -103,7 +103,7 @@ export class FileComponent implements OnInit {
    * Closes the menu on clicking outside of the menu
    */
   dismissMenu() {
-    this.trigger.closeMenu();
+    // this.trigger.closeMenu();
   }
 
   /**

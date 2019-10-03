@@ -5,7 +5,9 @@
                 <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
             </div>
             <div class='img-wrapper'>
-                    <i class="material-icons option-icon" #trigger [matMenuTriggerFor]="appMenu" (click)="openMenu($event)" (clickOutside)="dismissMenu()"> more_vert</i>
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="System File Menu" class="option-icon" (click)="openMenu($event)">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
                 <img [src]="imageToShow" class="preview-img" *ngIf="showPreview" style="height: 250px; width:200px">
             </div>
     </div>
@@ -16,7 +18,7 @@
 </div>
 
 
-<mat-menu #appMenu="matMenu">
+<mat-menu #menu="matMenu">
     <button mat-menu-item (click)="openFile()">Open File</button>
     <button mat-menu-item (click)="showInFolder()">Show in Folder</button>
     <button mat-menu-item (click)="rename()">Rename</button>

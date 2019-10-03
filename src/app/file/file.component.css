@@ -129,9 +129,9 @@
 
   .option-icon {
     position: absolute;
-    right: 0;
+    right: -7px;
     z-index: 10;
-    top: 29px;
+    top: 20px;
     color: #100e0eb8;
     transition-duration: 0.3s;
     transition-property: color;

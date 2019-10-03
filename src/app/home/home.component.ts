@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit {
    * array that stores top 10 recently used files
    */
   recentDriveFiles: Array<object>;
+  tableDriveFiles: Array<object>;
 
   /**
    * status of the google login
@@ -75,6 +76,7 @@ export class HomeComponent implements OnInit {
     this.driveService.fetchDriveFilesEvent.subscribe((files: Array<object>) => {
       this.driveFiles = files;
       this.recentDriveFiles = this.driveFiles.slice(0, 10);
+      this.tableDriveFiles = this.driveFiles.slice(10);
       // udpdate the Angular DOM explicitly
       this.cd.detectChanges();
     });
@@ -103,6 +105,26 @@ export class HomeComponent implements OnInit {
     console.log(this.systemFiles);
     // udpdate the Angular DOM explicitly    
     this.cd.detectChanges();
+  }
+
+  deleteDriveFile(file) {
+
+    const index = this.driveFiles.indexOf(file);
+    console.log(index, file)
+    this.driveService.delete(file.id);
+    this.driveService.deleteEmitter.subscribe(() => {
+      if(index < 10) {
+        this.recentDriveFiles.splice(index,1);
+        this.recentDriveFiles.push(this.tableDriveFiles.splice(0,1)[0]);
+      } else {
+        this.tableDriveFiles.splice(index-10,1);
+        this.tableDriveFiles = this.tableDriveFiles;
+      }
+  
+      this.driveFiles.splice(index,1);
+      console.log('after deletion', this.tableDriveFiles)
+      // this.cd.detectChanges();
+    })
   }
 
 }
