@@ -16,7 +16,9 @@ import { DriveService } from '../services/drive.service';
     webViewLink: string,
     modifiedTime?: string,
     size?: number,
-    sizeString?: string
+    sizeString?: string,
+    owners: Array<object>,
+    ownedByMe: boolean
   }
 
 @Component({

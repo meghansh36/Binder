@@ -1,4 +1,4 @@
-<div class="file-wrapper" style="height:300px; width: 200px; color: white; " (click)="openFile()">
+<div class="file-wrapper" style="height:320px; width: 200px; color: white; " (click)="openFile()">
     <div class="file-header mat-body-strong mat-body-2">{{file.name | fileName}}</div>
     <div class="preview-area">
             <div *ngIf="!showPreview" style="height:250px; width:200px">
@@ -11,7 +11,11 @@
                 <img [src]="imageToShow" class="preview-img" *ngIf="showPreview" style="height: 250px; width:200px">
             </div>
     </div>
-    <div class="file-footer mat-small mat-caption">
+    <div class="file-footer mat-small mat-caption" style="color: #8d8c8c">
+        <span>Owned By</span>
+        <span>{{owner}}</span>
+    </div>
+    <div class="file-footer mat-small mat-caption" style="color: #8d8c8c">
         <span>Last Modified</span>
         <span>{{LMDate}}</span>
     </div>

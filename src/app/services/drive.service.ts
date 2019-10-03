@@ -114,11 +114,12 @@ export class DriveService {
     this._electronService.ipcRenderer.once('delete-drive-file-success', (event, response) => {
 
     this.baseService.showSnackBar('File Deleted Successfully', 'success')
-    this.deleteEmitter.next();
+    this.deleteEmitter.next(true);
     });
 
-    this._electronService.ipcRenderer.once('rename-drive-file-failure', (event, response) => {
+    this._electronService.ipcRenderer.once('delete-drive-file-failure', (event, response) => {
       this.baseService.showSnackBar('Error in Deleteing File', 'failure')
+      this.deleteEmitter.next(false);
     });
   }
 

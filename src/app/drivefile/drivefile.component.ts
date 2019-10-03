@@ -13,7 +13,9 @@ interface File {
   mimeType: string,
   modifiedByMeTime: string,
   webViewLink: string
-  size?: string
+  size?: string,
+  owners: Array<object>,
+  ownedByMe: boolean
 }
 
 /**
@@ -45,7 +47,7 @@ export class DrivefileComponent implements OnInit, AfterViewInit {
    */
   showPreview = false;
   timer: NodeJS.Timer;
-
+  owner: string;
   /**
    * Last modified date string of the file
    */
@@ -56,7 +58,11 @@ export class DrivefileComponent implements OnInit, AfterViewInit {
     // generate date from the modified time in time string format used by google
     const date = new Date(this.file['modifiedByMeTime']);
     this.LMDate = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`
-    
+    if(this.file.ownedByMe) {
+        this.owner = 'You'
+    } else {
+      this.owner = this.file.owners[0]['displayName'];
+    }
     this.getFilePreview();
   }
 
