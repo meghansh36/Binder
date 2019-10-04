@@ -1,3 +1,11 @@
 .option-icon:hover {
     cursor: pointer;
 }
+
+.mat-column-name {
+    width: 60%;
+}
+
+.mat-column-ownedBy {
+    width: 10%;
+}
