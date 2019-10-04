@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +6,5 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  public config: PerfectScrollbarConfigInterface = {};
   title = 'Binder';
 }
