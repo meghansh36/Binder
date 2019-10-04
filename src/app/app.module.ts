@@ -28,6 +28,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import { MatSortModule } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,7 +58,8 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
     MatTooltipModule,
     MatSortModule,
     MatIconModule,
-    NgScrollbarModule
+    NgScrollbarModule,
+    PerfectScrollbarModule
   ],
   providers: [],
   bootstrap: [AppComponent],

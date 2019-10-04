@@ -1,6 +1,6 @@
 <div  class="mat-elevation-z8" style="width: 90%; margin:auto; margin-top: 50px; height: 500px; overflow: auto">
-    <ng-scrollbar [visibility]="'hover'">
-    <table mat-table [dataSource]="dataSource" style="width:100%; background-color: #24242424" matSort>
+    <ng-scrollbar visibility="hover" style="--scrollbar-track-color: #60606040; --scrollbar-thumb-color: rgba(0, 0, 0, 0.74);">
+    <table mat-table [dataSource]="dataSource" style="width:100%; background-color: #24242424; height: 500px; overflow: auto" matSort>
     
         <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
