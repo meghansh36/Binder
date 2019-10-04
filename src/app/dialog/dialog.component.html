@@ -1,0 +1,7 @@
+<div mat-dialog-content>
+    <h2 class="mat-h2 mat-headline" style="text-align: center; ">{{message}}</h2>
+</div>
+<div mat-dialog-actions style="justify-content: flex-end;">
+    <button mat-button (click)="onNoClick()" style="color: #ef5350">Cancel</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial style="color: #1de9b6">Yes</button>
+</div>

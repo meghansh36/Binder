@@ -5,7 +5,7 @@
                 <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
             </div>
             <div class='img-wrapper'>
-                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Drive File Menu" class="option-icon" (click)="openMenu($event)" [matMenuTriggerData]="{owner: file.ownedByMe}">
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Drive File Menu" class="option-icon" (click)="openMenu($event)" [matMenuTriggerData]="{owner: file.ownedByMe, mimeType: file.mimeType}">
                     <mat-icon>more_vert</mat-icon>
                   </button>
                 <img [src]="imageToShow" class="preview-img" *ngIf="showPreview" style="height: 250px; width:200px">
@@ -23,12 +23,19 @@
 
 
 <mat-menu #menu="matMenu">
-    <ng-template matMenuContent let-owner="owner">
+    <ng-template matMenuContent let-owner="owner" let-mimeType="mimeType">
         <button mat-menu-item (click)="openFile()">Open File</button>
         <button mat-menu-item (click)="rename()">Rename</button>
-        <button mat-menu-item *ngIf="owner" (click)="delete()">Delete</button>
-        <button mat-menu-item (click)="showInFolder()">Download</button>
+        <button mat-menu-item *ngIf="owner" (click)="openDialog()">Delete</button>
+        <button mat-menu-item [matMenuTriggerData]="{mimeType: mimeType}" [matMenuTriggerFor]="downloadMenu">Download</button>
         <button mat-menu-item>Share</button>
         <button mat-menu-item>View Details</button>
+    </ng-template>
+</mat-menu>
+
+<mat-menu #downloadMenu="matMenu">
+    <ng-template matMenuContent let-mimeType="mimeType">
+        <button mat-menu-item>Word Document</button>
+        <button mat-menu-item *ngIf="mimeType === 'application/vnd.google-apps.document'">PDF</button>
     </ng-template>
 </mat-menu>

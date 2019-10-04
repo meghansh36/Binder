@@ -3,6 +3,7 @@ import { DriveService } from '../services/drive.service';
 import { BaseService } from '../services/base.service';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { take } from 'rxjs/operators';
 
 interface File {
   name: string,
@@ -118,6 +119,13 @@ export class DrivefileComponent implements OnInit, AfterViewInit {
 
   delete() {
     this.deleteOutputEvent.emit(this.file);
+  }
+
+  openDialog() {
+    this._baseService.openDialog('Are you sure you want to delete this file?').pipe(take(1)).subscribe((result: boolean) => {
+      if(result) 
+        this.delete();
+    })
   }
 
 

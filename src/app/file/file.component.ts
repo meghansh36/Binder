@@ -3,6 +3,8 @@ import { SystemService } from '../services/system.service';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { RenameSheetComponent } from '../rename-sheet/rename-sheet.component';
+import { BaseService } from '../services/base.service';
+import { take } from 'rxjs/operators';
 
 /**
  * Component for displaying each system file
@@ -38,7 +40,7 @@ export class FileComponent implements OnInit {
    * Last modified date string of the file
    */
   LMDate: string;
-  constructor(private systemService: SystemService, private cd: ChangeDetectorRef, private _bottomSheet: MatBottomSheet) { }
+  constructor(private systemService: SystemService, private cd: ChangeDetectorRef, private _bottomSheet: MatBottomSheet, private baseService: BaseService) { }
 
 
   ngOnInit() {
@@ -141,6 +143,13 @@ export class FileComponent implements OnInit {
         this.file['filePath'] = path;
         this.file['filename'] = `${data}.${extension}`
       }
+    })
+  }
+
+  openDialog() {
+    this.baseService.openDialog('Are you sure you want to delete this file?').pipe(take(1)).subscribe((result: boolean) => {
+      if(result) 
+        this.delete();
     })
   }
 

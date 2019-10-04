@@ -4,6 +4,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { DriveService } from '../services/drive.service';
+import { BaseService } from '../services/base.service';
+import { take } from 'rxjs/operators';
 
   interface File {
     name: string,
@@ -47,7 +49,7 @@ export class FiletableComponent implements OnInit, AfterViewInit{
   displayedColumns = ['name' , 'lastMod', 'size', 'ownedBy','options']
 
   selectedFile: File;
-  constructor(private driveService: DriveService) { }
+  constructor(private driveService: DriveService, private baseService: BaseService) { }
 
   ngOnInit() {
   }
@@ -135,9 +137,11 @@ export class FiletableComponent implements OnInit, AfterViewInit{
     this.deleteOutputEvent.emit(this.selectedFile);
   }
 
-  debug(event) {
-    console.log(this.dataSource)
-    console.log(event)
+  openDialog() {
+    this.baseService.openDialog('Are you sure you want to delete this file?').pipe(take(1)).subscribe((result: boolean) => {
+      if(result) 
+        this.delete();
+    })
   }
 
 

@@ -27,8 +27,8 @@
         </ng-container>
 
         <ng-container matColumnDef="options">
-            <th mat-header-cell *matHeaderCellDef fxFlex="100px"> </th>
-            <td mat-cell *matCellDef="let file" fxFlex="100px"> <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Drive File Menu" (click)="openMenu($event, file)">
+            <th mat-header-cell *matHeaderCellDef > </th>
+            <td mat-cell *matCellDef="let file" > <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Drive File Menu" (click)="openMenu($event, file)" [matMenuTriggerData]="{owner: file.ownedByMe, mimeType: file.mimeType}">
                 <mat-icon>more_vert</mat-icon>
               </button> </td>
             
@@ -44,10 +44,19 @@
 </div>
 
 <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="openFile()">Open File</button>
-    <button mat-menu-item (click)="rename()">Rename</button>
-    <button mat-menu-item (click)="delete()">Delete</button>
-    <button mat-menu-item (click)="showInFolder()">Download</button>
-    <button mat-menu-item>Share</button>
-    <button mat-menu-item>View Details</button>
+    <ng-template matMenuContent let-owner="owner" let-mimeType="mimeType">
+        <button mat-menu-item (click)="openFile()">Open File</button>
+        <button mat-menu-item (click)="rename()">Rename</button>
+        <button mat-menu-item *ngIf="owner" (click)="openDialog()">Delete</button>
+        <button mat-menu-item [matMenuTriggerData]="{mimeType: mimeType}" [matMenuTriggerFor]="downloadMenu">Download</button>
+        <button mat-menu-item>Share</button>
+        <button mat-menu-item>View Details</button>
+    </ng-template>
+</mat-menu>
+
+<mat-menu #downloadMenu="matMenu">
+    <ng-template matMenuContent let-mimeType="mimeType">
+        <button mat-menu-item>Word Document</button>
+        <button mat-menu-item *ngIf="mimeType === 'application/vnd.google-apps.document'">PDF</button>
+    </ng-template>
 </mat-menu>
