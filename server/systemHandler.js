@@ -36,7 +36,7 @@ function getFiles(basePath, filter, ignore) {
 }
 
 function findFiles() {
-    const filter = ['.docx', '.doc'];
+    const filter = ['.docx', 'doc'];
     const ignore = ['node_modules', '$RECYCLE.BIN', 'System Volume Information', '.git'];
     let results = [];
     sysPaths.forEach(val => {
