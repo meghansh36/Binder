@@ -23,9 +23,9 @@
             <div class="wordFileSpace" style="color: white">
                 <h1 class="mat-h1 mat-headline">System Files</h1>
                 <div class="fileList" >
-                        <div *ngIf="systemFiles.length==0" style="margin-top: 10%"  >
-                                <h1 class="mat-h1">
-                                  NO FILE FOUND  !
+                        <div *ngIf="systemFiles.length==0" style="margin-top: 10%; margin-bottom: 10%" >
+                                <h1 class="mat-h1" style="color: #8d8c8c">
+                                  No Files Found.
                                 </h1>
                         </div>
                     <file [fileInfo]="file" *ngFor="let file of systemFiles" class="file-component"></file>
