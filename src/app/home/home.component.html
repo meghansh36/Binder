@@ -2,7 +2,7 @@
     <mat-toolbar color="warn">
         <span>Binder</span>
     </mat-toolbar>
-        <div class="file-space" style="height: 100%; background-color: rgba(0,0,0,.87)">
+        <div class="file-space" style="min-height: 100%; background-color: rgba(0,0,0,.87)">
 
             <div class="driveFileSpace" style="color: white">
                 <h1 class="mat-h1 mat-headline">Google Drive Files</h1>
@@ -23,6 +23,11 @@
             <div class="wordFileSpace" style="color: white">
                 <h1 class="mat-h1 mat-headline">System Files</h1>
                 <div class="fileList" >
+                        <div *ngIf="systemFiles.length==0" style="margin-top: 10%"  >
+                                <h1 class="mat-h1">
+                                  NO FILE FOUND  !
+                                </h1>
+                        </div>
                     <file [fileInfo]="file" *ngFor="let file of systemFiles" class="file-component"></file>
                 </div>
             </div>
