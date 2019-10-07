@@ -33,6 +33,8 @@ export class HomeComponent implements OnInit {
    * status of the google login
    */
   googleDriveLogInStatus: boolean;
+  hasGoogleFileLoad:boolean;
+  hasSystemFileLoad:boolean;
 
   constructor(private systemService: SystemService, private cd: ChangeDetectorRef, private driveService: DriveService) { }
 
@@ -75,6 +77,7 @@ export class HomeComponent implements OnInit {
     // subscribe to the ftehc drive files observable
     this.driveService.fetchDriveFilesEvent.subscribe((files: Array<object>) => {
       this.driveFiles = files;
+      this.hasGoogleFileLoad=true;
       this.recentDriveFiles = this.driveFiles.slice(0, 10);
       this.tableDriveFiles = this.driveFiles.slice(10);
       // udpdate the Angular DOM explicitly
@@ -101,6 +104,7 @@ export class HomeComponent implements OnInit {
    * @param files : Array of objects for files received
    */
   receivedSystemFiles(files: Array<object>) {
+    this.hasSystemFileLoad=true;
     this.systemFiles = files;
     console.log(this.systemFiles);
     // udpdate the Angular DOM explicitly    
@@ -126,5 +130,4 @@ export class HomeComponent implements OnInit {
       }
     })
   }
-
 }
