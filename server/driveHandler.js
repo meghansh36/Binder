@@ -57,10 +57,29 @@ async function deleteFile(id) {
     }
 }
 
+async function downloadFile(exportLink, path, browser) {
+    try {
+        // const page = await browser.newPage();
+        // await page._client.send('Page.setDownloadBehavior', {behavior: 'allow', downloadPath: path});
+  	    // await page.goto(exportLink);
+        await googleLoginHandler.checkAndGenerateToken();
+        let access_token = await googleLoginHandler.getTokenCookie('access_token', googleLoginHandler.cookieUrl);
+
+        let {data} = await axios.post(`${googleLoginHandler.proxyUrl}/downloadFile`, {exportLink}, {
+            responseType: 'arraybuffer',
+            headers: {Cookie: `access_token=${access_token.value};`}
+        });
+        return data;
+    } catch (error) {
+        throw error
+    }
+}
+
 
 module.exports = {
     getDriveFiles,
     fetchPreview,
     rename,
-    deleteFile
+    deleteFile,
+    downloadFile
 }
