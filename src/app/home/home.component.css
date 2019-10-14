@@ -33,3 +33,7 @@
     background-color: #1E88E5;
     height: fit-content;
 }
+
+ng-mat-search-bar mat-form-field {
+    width: 500px
+}

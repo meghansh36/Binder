@@ -30,6 +30,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DialogComponent } from './dialog/dialog.component';
+import { NgMatSearchBarModule } from 'ng-mat-search-bar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,7 +62,8 @@ import { DialogComponent } from './dialog/dialog.component';
     MatSortModule,
     MatIconModule,
     NgScrollbarModule,
-    MatDialogModule
+    MatDialogModule,
+    NgMatSearchBarModule
   ],
   providers: [],
   bootstrap: [AppComponent],
