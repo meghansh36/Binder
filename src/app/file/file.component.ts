@@ -141,7 +141,7 @@ export class FileComponent implements OnInit {
         // rename file
         let path = this.systemService.rename(this.file['filePath'], `${data}.${extension}`);
         this.file['filePath'] = path;
-        this.file['filename'] = `${data}.${extension}`
+        this.file['name'] = `${data}.${extension}`
       }
     })
   }

@@ -2,7 +2,7 @@
     <mat-toolbar color="warn" style="display:flex; justify-content: space-between">
         <span>Binder</span>
 
-        <span> <mat-search-bar></mat-search-bar></span>
+        <span> <mat-search-bar (onOpen)="searchOpen()" (onClose)="searchClose()" (onEnter)="searchEntered($event)"></mat-search-bar></span>
     </mat-toolbar>
         <div class="file-space" style="min-height: 100%; background-color: rgba(0,0,0,.87)">
 

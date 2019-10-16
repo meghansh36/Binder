@@ -26,7 +26,7 @@ function getFiles(basePath, filter, ignore) {
             var ext = filePath.slice(extIndex);
             if (filter.indexOf(ext) >= 0) {
                 results.push({
-                    filename, filePath, stat
+                    name:filename, filePath, stat
                 })
             }
         }
