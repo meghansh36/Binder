@@ -35,7 +35,7 @@
 
 <mat-menu #downloadMenu="matMenu">
     <ng-template matMenuContent let-mimeType="mimeType">
-        <button mat-menu-item>Word Document</button>
-        <button mat-menu-item *ngIf="mimeType === 'application/vnd.google-apps.document'">PDF</button>
+        <button mat-menu-item (click)="downloadFile($event, 'word')">Word Document</button>
+        <button mat-menu-item  (click)="downloadFile($event, 'pdf')" *ngIf="mimeType === 'application/vnd.google-apps.document'">PDF</button>
     </ng-template>
 </mat-menu>

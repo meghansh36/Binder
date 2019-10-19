@@ -16,7 +16,8 @@ interface File {
   webViewLink: string
   size?: string,
   owners: Array<object>,
-  ownedByMe: boolean
+  ownedByMe: boolean,
+  exportLinks: object
 }
 
 /**
@@ -128,5 +129,18 @@ export class DrivefileComponent implements OnInit, AfterViewInit {
     })
   }
 
+  downloadFile(event, downloadAs) {
+    let exportLink: string;
+    let pdfMimeType = 'application/pdf';
+    let wordMimeType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+
+    if(this.file.mimeType === 'application/vnd.google-apps.document') {
+      exportLink = (downloadAs === 'word') ? this.file.exportLinks[wordMimeType] : this.file.exportLinks[pdfMimeType];
+    } else {
+      exportLink = `https://www.googleapis.com/drive/v3/files/${this.file.id}?alt=media`;
+    }
+    console.log(exportLink);
+    this.driveService.downloadFile(exportLink, this.file.name, this.file.mimeType, downloadAs);
+  }
 
 }

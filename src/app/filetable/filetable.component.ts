@@ -21,7 +21,8 @@ import { take } from 'rxjs/operators';
     sizeString?: string,
     owners: Array<object>,
     ownedByMe: boolean,
-    ownerName: string
+    ownerName: string,
+    exportLinks: object
   }
 
 @Component({
@@ -135,6 +136,7 @@ export class FiletableComponent implements OnInit, AfterViewInit{
 
   delete() {
     this.deleteOutputEvent.emit(this.selectedFile);
+    this.removeSelectedFile();
   }
 
   openDialog() {
@@ -142,6 +144,21 @@ export class FiletableComponent implements OnInit, AfterViewInit{
       if(result) 
         this.delete();
     })
+  }
+
+  downloadFile(event, downloadAs) {
+    let exportLink: string;
+    let pdfMimeType = 'application/pdf';
+    let wordMimeType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+
+    if(this.selectedFile.mimeType === 'application/vnd.google-apps.document') {
+      exportLink = (downloadAs === 'word') ? this.selectedFile.exportLinks[wordMimeType] : this.selectedFile.exportLinks[pdfMimeType];
+    } else {
+      exportLink = `https://www.googleapis.com/drive/v3/files/${this.selectedFile.id}?alt=media`;
+    }
+    console.log(exportLink);
+    this.driveService.downloadFile(exportLink, this.selectedFile.name, this.selectedFile.mimeType, downloadAs);
+    this.removeSelectedFile();
   }
 
 

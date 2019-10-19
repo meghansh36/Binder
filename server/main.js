@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, shell } = require('electron')
+const { app, BrowserWindow, ipcMain, shell, dialog, Notification } = require('electron')
 const path = require("path")
 const url = require('url')
 const systemHandler = require('./systemHandler');
@@ -6,6 +6,7 @@ const googleLoginHandler = require('./googleLoginHandler');
 const driveHandler = require('./driveHandler');
 const puppeteer = require('puppeteer')
 const fs = require('fs')
+const os = require('os');
 let browser;
 
 
@@ -165,5 +166,62 @@ ipcMain.on('delete-drive-file', async (event, id) => {
   } catch (error) {
     console.log(error);
     event.reply('delete-drive-file-failure', false)
+  }
+})
+
+ipcMain.on('download-drive-file', async (event, exportLink, fileName, mimeType, downloadAs) => {
+  try {
+    let defaultPath = `${os.homedir()}${path.sep}Downloads`;
+    if(mimeType === 'application/vnd.google-apps.document') {
+
+      if(downloadAs === 'word') {
+        fileName += '.docx'
+        defaultPath = defaultPath + `${path.sep}${fileName}`
+      }
+      else if(downloadAs === 'pdf') {
+        fileName += '.pdf'
+        defaultPath = defaultPath + `${path.sep}${fileName}`
+      }
+        
+    } else {
+      defaultPath = defaultPath + `${path.sep}${fileName}`
+    }
+
+
+    let filePath = dialog.showSaveDialogSync({
+      defaultPath: defaultPath
+    })
+
+    if( filePath) {
+      let notification = new Notification({
+        title: 'Starting File Download',
+      })
+
+      notification.show();
+      let fileData = await driveHandler.downloadFile(exportLink,filePath, browser);
+      fs.writeFileSync(filePath, fileData, {encoding: null});
+
+      console.log('file written successfully')
+
+      notification = new Notification({
+        title: 'File Downloaded Successfully',
+        body: `The file ${fileName} has been downloaded successfully`
+      })
+
+      notification.show();
+      notification.on('click', (e) => {
+        shell.showItemInFolder(filePath);
+      });
+    } else {
+      throw 'User cancelled'
+    }
+  } catch(e) {
+    let notification = new Notification({
+      title: 'Error',
+      body: `An unexpected error occured in downloading ${fileName}`
+    })
+
+    notification.show();
+    console.log(e);
   }
 })

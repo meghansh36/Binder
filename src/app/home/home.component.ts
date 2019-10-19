@@ -2,6 +2,8 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { SystemService } from '../services/system.service';
 import { DriveService } from '../services/drive.service';
 import { take } from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
+import { BaseService } from '../services/base.service';
 /**
  * This component is the main home view component
  */
@@ -36,7 +38,7 @@ export class HomeComponent implements OnInit {
   hasGoogleFileLoad:boolean;
   hasSystemFileLoad:boolean;
 
-  constructor(private systemService: SystemService, private cd: ChangeDetectorRef, private driveService: DriveService) { }
+  constructor(private systemService: SystemService, private cd: ChangeDetectorRef, private driveService: DriveService, private baseService: BaseService) { }
 
 
   ngOnInit() {
@@ -44,6 +46,7 @@ export class HomeComponent implements OnInit {
     this.checkGoogleLogin();
     // fetch system files
     this.fetchSystemFiles();
+
   }
 
   /**
@@ -74,7 +77,7 @@ export class HomeComponent implements OnInit {
    */
   fetchDriveFiles() {
     this.driveService.fetchDriveFiles();
-    // subscribe to the ftehc drive files observable
+    // subscribe to the fetch drive files observable
     this.driveService.fetchDriveFilesEvent.subscribe((files: Array<object>) => {
       this.driveFiles = files;
       this.hasGoogleFileLoad=true;
@@ -130,4 +133,21 @@ export class HomeComponent implements OnInit {
       }
     })
   }
+
+
+  searchClose() {
+  }
+
+  searchOpen() {
+
+  }
+
+  searchEntered(searchText) {
+    console.log(searchText);
+    let allFiles = [ ...this.systemFiles]
+    console.log(allFiles)
+    this.baseService.searchFiles(allFiles, searchText);
+  }
+
+
 }

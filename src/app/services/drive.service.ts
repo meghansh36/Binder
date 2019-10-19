@@ -123,5 +123,9 @@ export class DriveService {
     });
   }
 
+  downloadFile(exportLink, name, mimeType, downloadAs) {
+    this._electronService.ipcRenderer.send('download-drive-file', exportLink,name, mimeType, downloadAs);
+  }
+
 
 }
