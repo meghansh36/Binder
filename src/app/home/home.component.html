@@ -12,7 +12,18 @@
                     <button mat-raised-button class="login-button" (click)="googleLogin()">Login to Drive</button>
                 </div>
                 <div class="recentFilesList" style="width: 80%;margin:auto;position: relative;">
-                    <app-slider>
+                        <div *ngIf="!hasGoogleFileLoad" style="margin: 10% auto;width: 50%;text-align: center"  >
+                            <h1 class="mat-h1">
+                                Loading Files..
+                              </h1>
+                              <div class="lds-roller" style="padding-right:120px"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div> 
+                        </div>
+                         <div *ngIf="hasGoogleFileLoad && driveFiles.length==0" style="margin: 10% auto;width: 50%;text-align: center"  >
+                                    <h1 class="mat-h1">
+                                      NO FILE FOUND  !
+                                    </h1>
+                        </div>
+                    <app-slider>  
                         <app-drivefile [fileInfo]="file" *ngFor="let file of recentDriveFiles" class="file-component-drive" appSliderItem  (deleteFile)="deleteDriveFile($event)"></app-drivefile>
                     </app-slider>
                 </div>
@@ -25,9 +36,21 @@
             <div class="wordFileSpace" style="color: white">
                 <h1 class="mat-h1 mat-headline">System Files</h1>
                 <div class="fileList" >
+<<<<<<< HEAD
+                    <div *ngIf="!hasSystemFileLoad" style="margin: 10% auto;width: 50%;text-align: center"  >
+                        <h1 class="mat-h1">
+                            Loading Files..
+                          </h1>
+                          <div class="lds-roller" style="padding-right:120px"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div> 
+                    </div>
+                        <div *ngIf="hasSystemFileLoad &&systemFiles.length==0" style="margin-top: 10%"  >
+                                <h1 class="mat-h1">
+                                  NO FILE FOUND  !
+=======
                         <div *ngIf="systemFiles.length==0" style="margin-top: 10%; margin-bottom: 10%" >
                                 <h1 class="mat-h1" style="color: #8d8c8c">
                                   No Files Found.
+>>>>>>> 2442c3bab7bdc5c423217751c2f84572ae290df8
                                 </h1>
                         </div>
                     <file [fileInfo]="file" *ngFor="let file of systemFiles" class="file-component"></file>
