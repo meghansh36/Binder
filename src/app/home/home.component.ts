@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit {
    * array that stores the metadata of files found on google drive
    */
   driveFiles: Array<object> = [];
-
+  searchDriveFiles = [];
   /**
    * array that stores top 10 recently used files
    */
@@ -159,10 +159,13 @@ export class HomeComponent implements OnInit {
   }
 
   searchEntered(searchText) {
-    this.searchActive = true;
-    let allFiles = [ ...this.systemFiles]
-    this.searchSystemFiles = this.baseService.searchFiles(allFiles, searchText);
-    console.log(this.searchSystemFiles);
+    if(searchText.length > 0) {
+      this.searchActive = true;
+      this.searchDriveFiles = this.baseService.searchFiles([...this.driveFiles], searchText);
+      this.searchSystemFiles = this.baseService.searchFiles([...this.systemFiles], searchText);
+      console.log(this.searchSystemFiles);
+      console.log(this.searchDriveFiles)
+    }
   }
 
 

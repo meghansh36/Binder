@@ -4,13 +4,20 @@
         <div style="display: inline-block; position: relative;"> <mat-search-bar (onOpen)="searchOpen()" (onClose)="searchClose()" (onEnter)="searchEntered($event)"></mat-search-bar>
             <div class="search-result-box" *ngIf="searchActive" [@enterAnimation]>
                 <p>Drive files</p>
-                <div>files</div>
+                <div *ngFor="let file of searchDriveFiles" style="display: flex; font-size: smaller;">
+                    <span style="margin: 0 10px;">
+                        <img src="./assets/word.png" *ngIf="file.mimeType !== 'application/vnd.google-apps.document'" class="icon-img">
+                        <img src="./assets/doc.png" *ngIf="file.mimeType === 'application/vnd.google-apps.document'" class="icon-img">
+                    </span>
+                    <span [innerHTML]="file.name | highlight: file.start:file.end"></span>
+                </div>
                 <hr>
                 <p>System Files</p>
-                <div *ngFor="let file of searchSystemFiles" style="display: flex">
-                    <span><img src="./assets/word.png" *ngIf="file.mimeType !== 'application/vnd.google-apps.document'" class="icon-img"></span>
+                <div *ngFor="let file of searchSystemFiles" style="display: flex; font-size: smaller;">
+                    <span style="margin: 0 10px;">
+                        <img src="./assets/word.png" class="icon-img">
+                    </span>
                     <span [innerHTML]="file.name | highlight: file.start:file.end"></span>
-
                 </div>
             </div>
         </div>
