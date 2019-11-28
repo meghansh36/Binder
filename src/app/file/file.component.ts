@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef, ViewChild, OnDestroy } from '@angular/core';
 import { SystemService } from '../services/system.service';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
@@ -15,7 +15,7 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./file.component.css'],
   providers: [SystemService]
 })
-export class FileComponent implements OnInit {
+export class FileComponent implements OnInit, OnDestroy {
   /**
    * trigger for menu button
    */
@@ -68,7 +68,7 @@ export class FileComponent implements OnInit {
     /**
      * Subscribe to the preview emitter observable
      */
-    this.systemService.previewEmitter.subscribe(data => {
+    this.systemService.previewEmitter.pipe(take(1)).subscribe(data => {
       this.renderPreview(data);
     })
   }
@@ -135,7 +135,7 @@ export class FileComponent implements OnInit {
     /**
      * Subscribe to the close event of the bottom sheet
      */
-    bottomSheetRef.afterDismissed().subscribe(data => {
+    bottomSheetRef.afterDismissed().pipe(take(1)).subscribe(data => {
       // if the file was renamed
       if(data) {
         // rename file
@@ -151,6 +151,10 @@ export class FileComponent implements OnInit {
       if(result) 
         this.delete();
     })
+  }
+
+  ngOnDestroy() {
+    this.cd.detach();
   }
 
 }

@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
   googleDriveLogInStatus: boolean;
   hasGoogleFileLoad:boolean;
   hasSystemFileLoad:boolean;
-
+  searchActive = false;
   constructor(private systemService: SystemService, private cd: ChangeDetectorRef, private driveService: DriveService, private baseService: BaseService) { }
 
 
@@ -136,6 +136,7 @@ export class HomeComponent implements OnInit {
 
 
   searchClose() {
+    this.searchActive = false;
   }
 
   searchOpen() {
@@ -143,10 +144,11 @@ export class HomeComponent implements OnInit {
   }
 
   searchEntered(searchText) {
-    console.log(searchText);
+    this.searchActive = true;
+    this.cd.detectChanges();
     let allFiles = [ ...this.systemFiles]
-    console.log(allFiles)
-    this.baseService.searchFiles(allFiles, searchText);
+    let result = this.baseService.searchFiles(allFiles, searchText);
+    console.log(result);
   }
 
 

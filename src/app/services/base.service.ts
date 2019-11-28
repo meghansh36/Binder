@@ -39,68 +39,17 @@ export class BaseService {
     return this.dialogClosedEmitter;
   }
 
-  createLPS(pattern) {
-    let lps = new Array(pattern.length)
-
-    lps[0] = 0;
-    let j = 0;
-    let i = 1;
-
-    while( i < pattern.length) {
-      if(pattern[j] === pattern[i]) {
-        lps[i] = j+1;
-        i++; j++;
-      } else {
-        if(j == 0) {
-          lps[i] = 0; i++;
-        } else {
-          j = lps[j-1]
-        }
-      }
-    }
-
-    return lps;
-  }
-
-  KMPSearching(lps, name, pattern) {
-    let j = 0; 
-    let i = 0;
-
-    while( i < name.length && j != pattern.length-1) {
-      if(pattern[j+1] === name[i]) {
-        j++; i++;
-      } else {
-        if(j === 0) i++;
-        else {
-          j = lps[j];
-        }
-      }
-    }
-
-    if (j !== pattern.length-1) {
-      return null;
-    } else {
-      console.log("success")
-      return i-1;
-    }
-  }
-
-  searchFiles(files:Array<any>, pattern:string) {
+  searchFiles(files: Array<any>, pattern: string) {
     pattern = pattern.toLowerCase();
-    let lps = this.createLPS(pattern);
-    lps.splice(0, 0, null);
-    console.log(lps)
-
-    let filenames = files.map(val => val.name.toLowerCase());
-    console.log(filenames);
-    let searchResults = []
-    filenames.forEach((name, index) => {
-      let searchResult = this.KMPSearching(lps, name, pattern);
-      if(searchResult !== null) 
-        searchResults.push({name, start: searchResult-pattern.length+1 });
+    let result = [];
+    files.forEach(file => {
+      let index = file.name.toLowerCase().indexOf(pattern);
+      if(index !== -1) {
+        result.push({...file, start: index})
+      }
     })
 
-    console.log(searchResults)
+    return result;
   }
 
 
