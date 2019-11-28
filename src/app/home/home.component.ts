@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
    * array that stores the metadata of files found on the system
    */
   systemFiles = [];
-
+  searchSystemFiles = [];
   /**
    * array that stores the metadata of files found on google drive
    */
@@ -161,8 +161,8 @@ export class HomeComponent implements OnInit {
   searchEntered(searchText) {
     this.searchActive = true;
     let allFiles = [ ...this.systemFiles]
-    let result = this.baseService.searchFiles(allFiles, searchText);
-    console.log(result);
+    this.searchSystemFiles = this.baseService.searchFiles(allFiles, searchText);
+    console.log(this.searchSystemFiles);
   }
 
 

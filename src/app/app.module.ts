@@ -31,6 +31,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DialogComponent } from './dialog/dialog.component';
 import { NgMatSearchBarModule } from 'ng-mat-search-bar';
+import { HighlightPipe } from './pipes/highlight.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +43,8 @@ import { NgMatSearchBarModule } from 'ng-mat-search-bar';
     DrivefileComponent,
     SliderItemDirective,
     FiletableComponent,
-    DialogComponent
+    DialogComponent,
+    HighlightPipe
   ],
   imports: [
     BrowserModule,

@@ -3,7 +3,15 @@
         <span>Binder</span>
         <div style="display: inline-block; position: relative;"> <mat-search-bar (onOpen)="searchOpen()" (onClose)="searchClose()" (onEnter)="searchEntered($event)"></mat-search-bar>
             <div class="search-result-box" *ngIf="searchActive" [@enterAnimation]>
-                    search works
+                <p>Drive files</p>
+                <div>files</div>
+                <hr>
+                <p>System Files</p>
+                <div *ngFor="let file of searchSystemFiles" style="display: flex">
+                    <span><img src="./assets/word.png" *ngIf="file.mimeType !== 'application/vnd.google-apps.document'" class="icon-img"></span>
+                    <span [innerHTML]="file.name | highlight: file.start:file.end"></span>
+
+                </div>
             </div>
         </div>
     </mat-toolbar>

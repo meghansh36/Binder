@@ -45,7 +45,7 @@ export class BaseService {
     files.forEach(file => {
       let index = file.name.toLowerCase().indexOf(pattern);
       if(index !== -1) {
-        result.push({...file, start: index})
+        result.push({...file, start: index, end: index + pattern.length})
       }
     })
 
