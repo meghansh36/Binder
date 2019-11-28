@@ -2,13 +2,7 @@
     <mat-toolbar color="warn" style="display:flex; justify-content: space-between; z-index: 20">
         <span>Binder</span>
         <div style="display: inline-block; position: relative;"> <mat-search-bar (onOpen)="searchOpen()" (onClose)="searchClose()" (onEnter)="searchEntered($event)"></mat-search-bar>
-            <div *ngIf="searchActive" style="background-color: rgba(0,0,0,.87);
-            position: absolute;
-            right: 100%;
-            width: 500px;
-            height: 500px;
-            z-index: 15;
-            margin-top: 20px">
+            <div class="search-result-box" *ngIf="searchActive" [@enterAnimation]>
                     search works
             </div>
         </div>

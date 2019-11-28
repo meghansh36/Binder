@@ -2,8 +2,9 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { SystemService } from '../services/system.service';
 import { DriveService } from '../services/drive.service';
 import { take } from 'rxjs/operators';
-import { FormControl } from '@angular/forms';
 import { BaseService } from '../services/base.service';
+import { trigger, style, animate, transition } from '@angular/animations';
+
 /**
  * This component is the main home view component
  */
@@ -11,7 +12,21 @@ import { BaseService } from '../services/base.service';
   selector: 'home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  providers: [SystemService, DriveService]
+  providers: [SystemService, DriveService],
+  animations: [
+    trigger(
+      'enterAnimation', [
+        transition(':enter', [
+          style({height: '0' , opacity: 0}),
+          animate('300ms', style({height: '*', opacity: 1}))
+        ]),
+        transition(':leave', [
+          style({height: '*', opacity: 1}),
+          animate('300ms', style({height: '0', opacity: 0}))
+        ])
+      ]
+    )
+  ],
 })
 export class HomeComponent implements OnInit {
 
@@ -145,7 +160,6 @@ export class HomeComponent implements OnInit {
 
   searchEntered(searchText) {
     this.searchActive = true;
-    this.cd.detectChanges();
     let allFiles = [ ...this.systemFiles]
     let result = this.baseService.searchFiles(allFiles, searchText);
     console.log(result);

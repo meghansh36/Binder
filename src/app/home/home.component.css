@@ -121,6 +121,18 @@
     }
   }
 ng-mat-search-bar mat-form-field {
-    width: 500px
+    width: 500px;
+}
+
+.search-result-box {
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  background-color: rgba(0,0,0,.87);
+  position: absolute;
+  right: 100%;
+  width: 500px;
+  height: 500px;
+  z-index: 15;
+  margin-top: 20px
 }
 
