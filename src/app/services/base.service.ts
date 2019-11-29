@@ -3,7 +3,6 @@ import { Subject } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
-import { FilePathComponent } from '../file-path/file-path.component';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +10,7 @@ import { FilePathComponent } from '../file-path/file-path.component';
 export class BaseService {
 
   private allFiles = [];
-  constructor(private zone: NgZone, private snackBar: MatSnackBar, private dialog: MatDialog) { }
+  constructor(public zone: NgZone, private snackBar: MatSnackBar, public dialog: MatDialog) { }
 
   sliderLoadedEvent = new Subject();
   dialogClosedEmitter = new Subject();
@@ -53,20 +52,7 @@ export class BaseService {
     return result;
   }
 
-  openPathDialog(paths) {
-    this.zone.run(() => {
-      const dialogRef = this.dialog.open(FilePathComponent, {
-        width: '500px',
-        height: '300px',
-        data: paths
-      });
-    
-      dialogRef.afterClosed().subscribe(result => {
-        this.dialogClosedEmitter.next(result);
-      });
-    });
-
-  }
+  
 
 
 }

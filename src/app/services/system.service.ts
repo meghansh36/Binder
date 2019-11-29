@@ -3,7 +3,6 @@ import { ElectronService } from 'ngx-electron';
 import { Subject } from 'rxjs';
 import { BaseService } from './base.service';
 
-
 @Injectable()
 export class SystemService {
   // tslint:disable-next-line: variable-name
@@ -107,8 +106,20 @@ export class SystemService {
 
   getPaths() {
     let paths = this._electronService.ipcRenderer.sendSync('fetch-paths');
-
     return paths
+  }
+
+  addPath() {
+    let addedPath = this._electronService.ipcRenderer.sendSync('add-path');
+    return addedPath;
+  }
+
+  deletePath(index) {
+    let deleted = this._electronService.ipcRenderer.sendSync('delete-path', index);
+
+    if(deleted) {
+      return true;
+    }
   }
 
 }

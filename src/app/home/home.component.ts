@@ -4,6 +4,7 @@ import { DriveService } from '../services/drive.service';
 import { take } from 'rxjs/operators';
 import { BaseService } from '../services/base.service';
 import { trigger, style, animate, transition } from '@angular/animations';
+import { FilePathComponent } from '../file-path/file-path.component';
 
 /**
  * This component is the main home view component
@@ -178,7 +179,14 @@ export class HomeComponent implements OnInit {
 
   addPaths() {
     let paths = this.systemService.getPaths();
-    this.baseService.openPathDialog(paths);
+
+    this.baseService.zone.run(() => {
+      const dialogRef = this.baseService.dialog.open(FilePathComponent, {
+        width: '500px',
+        height: '300px',
+        data: paths
+      });
+    });
   }
 
 

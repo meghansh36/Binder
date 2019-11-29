@@ -72,6 +72,38 @@ ipcMain.on('fetch-paths', (event) => {
   event.returnValue = paths.sysPaths;
 })
 
+ipcMain.on('add-path', (event) => {
+  let selectedPath = dialog.showOpenDialogSync({
+    properties: ['openDirectory'],
+    buttonLabel: 'Select',
+  })
+
+  let paths = fs.readFileSync('paths.json').toString();
+  paths = JSON.parse(paths);
+  paths.sysPaths.push(selectedPath[0]);
+  fs.writeFileSync('paths.json', JSON.stringify(paths));
+
+  event.returnValue = selectedPath[0];
+  
+})
+
+ipcMain.on('add-path', (event, index) => {
+
+  try {
+    let paths = fs.readFileSync('paths.json').toString();
+    paths = JSON.parse(paths);
+    paths.sysPaths.splice(index, 1);
+    fs.writeFileSync('paths.json', JSON.stringify(paths));
+  
+    event.returnValue = true;
+  } catch (error) {
+    event.returnValue = false;
+  }
+
+  
+})
+
+
 ipcMain.on('get-preview', async (event, filePath, uniqueChannel) => {
 
   try {
