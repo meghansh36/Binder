@@ -71,6 +71,6 @@ import { FilePathComponent } from './file-path/file-path.component';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [RenameSheetComponent, DialogComponent]
+  entryComponents: [RenameSheetComponent, DialogComponent, FilePathComponent]
 })
 export class AppModule { }

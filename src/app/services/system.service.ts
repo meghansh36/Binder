@@ -105,4 +105,10 @@ export class SystemService {
     }
   }
 
+  getPaths() {
+    let paths = this._electronService.ipcRenderer.sendSync('fetch-paths');
+
+    return paths
+  }
+
 }

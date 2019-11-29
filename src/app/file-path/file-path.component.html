@@ -1,6 +1,8 @@
-<h2 [mat-dialog-title]>Configure File Paths</h2>
-<div class="path-list">
-
+<h2 mat-dialog-title>Configure File Paths</h2>
+<div class="path-list" style="height: 120px; overflow: auto;">
+    <div class="path" *ngFor="let path of paths">
+        <p>{{path}}</p>
+    </div>
 </div>
 <mat-dialog-actions>
     <button mat-button mat-dialog-close>No</button>

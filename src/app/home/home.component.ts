@@ -177,7 +177,8 @@ export class HomeComponent implements OnInit {
   }
 
   addPaths() {
-    
+    let paths = this.systemService.getPaths();
+    this.baseService.openPathDialog(paths);
   }
 
 

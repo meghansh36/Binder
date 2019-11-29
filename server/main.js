@@ -1,7 +1,7 @@
 const { app, BrowserWindow, ipcMain, shell, dialog, Notification } = require('electron')
 const path = require("path")
 const url = require('url')
-const systemHandler = require('./systemHandler');
+let systemHandler;
 const googleLoginHandler = require('./googleLoginHandler');
 const driveHandler = require('./driveHandler');
 const puppeteer = require('puppeteer')
@@ -54,9 +54,22 @@ app.on('ready', createWindow);
 
  
 ipcMain.on('get-system-files', (event, arg) => {
+  if(!fs.existsSync('paths.json')) {
+    fs.writeFileSync('paths.json', JSON.stringify({
+      sysPaths: [`${path.join(os.homedir(), 'Desktop')}`]
+    }))
+  }
+  systemHandler = require('./systemHandler');
   console.log("finding files", __dirname);
   let data = systemHandler.findFiles();
   event.reply('return-system-files', data)
+})
+
+ipcMain.on('fetch-paths', (event) => {
+  let paths = fs.readFileSync('paths.json').toString();
+  paths = JSON.parse(paths);
+
+  event.returnValue = paths.sysPaths;
 })
 
 ipcMain.on('get-preview', async (event, filePath, uniqueChannel) => {
