@@ -32,6 +32,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { DialogComponent } from './dialog/dialog.component';
 import { NgMatSearchBarModule } from 'ng-mat-search-bar';
 import { HighlightPipe } from './pipes/highlight.pipe';
+import { FilePathComponent } from './file-path/file-path.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +45,8 @@ import { HighlightPipe } from './pipes/highlight.pipe';
     SliderItemDirective,
     FiletableComponent,
     DialogComponent,
-    HighlightPipe
+    HighlightPipe,
+    FilePathComponent
   ],
   imports: [
     BrowserModule,

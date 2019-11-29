@@ -176,5 +176,9 @@ export class HomeComponent implements OnInit {
     this.driveService.openDriveFile(link);
   }
 
+  addPaths() {
+    
+  }
+
 
 }
