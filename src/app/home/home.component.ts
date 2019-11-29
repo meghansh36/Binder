@@ -18,11 +18,11 @@ import { trigger, style, animate, transition } from '@angular/animations';
       'enterAnimation', [
         transition(':enter', [
           style({height: '0' , opacity: 0}),
-          animate('300ms', style({height: '*', opacity: 1}))
+          animate('100ms', style({height: '*', opacity: 1}))
         ]),
         transition(':leave', [
           style({height: '*', opacity: 1}),
-          animate('300ms', style({height: '0', opacity: 0}))
+          animate('100ms', style({height: '0', opacity: 0}))
         ])
       ]
     )
@@ -166,6 +166,14 @@ export class HomeComponent implements OnInit {
       console.log(this.searchSystemFiles);
       console.log(this.searchDriveFiles)
     }
+  }
+
+  openFile(filePath) {
+    this.systemService.openFile(filePath)
+  }
+
+  openDriveFile(link) {
+    this.driveService.openDriveFile(link);
   }
 
 
