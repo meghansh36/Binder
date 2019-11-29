@@ -18,7 +18,6 @@ export class FilePathComponent implements OnInit {
 
   addPath() {
     let addedPath = this.systemService.addPath();
-
     this.paths.push(addedPath);
   } 
 

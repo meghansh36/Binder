@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { sysPaths } = require('./systemPaths');
+const { fetchPaths } = require('./systemPaths');
 const mammoth = require('mammoth');
 const trash = require('trash');
 
@@ -39,7 +39,7 @@ function findFiles() {
     const filter = ['.docx', 'doc'];
     const ignore = ['node_modules', '$RECYCLE.BIN', 'System Volume Information', '.git'];
     let results = [];
-    sysPaths.forEach(val => {
+    fetchPaths().forEach(val => {
         console.log(val);
         results = results.concat(getFiles(val, filter, ignore));
     });

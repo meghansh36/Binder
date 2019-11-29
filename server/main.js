@@ -87,7 +87,7 @@ ipcMain.on('add-path', (event) => {
   
 })
 
-ipcMain.on('add-path', (event, index) => {
+ipcMain.on('delete-path', (event, index) => {
 
   try {
     let paths = fs.readFileSync('paths.json').toString();

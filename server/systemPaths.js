@@ -2,9 +2,13 @@ const path = require('path')
 const os = require('os');
 const fs = require('fs')
 
-let paths = fs.readFileSync('paths.json').toString();
-paths = JSON.parse(paths);
+function fetchPaths() {
+    let paths = fs.readFileSync('paths.json').toString();
+    paths = JSON.parse(paths);
+    return paths.sysPaths;
+}
+
 
 module.exports = {
-    sysPaths: paths.sysPaths
+    fetchPaths
 }
