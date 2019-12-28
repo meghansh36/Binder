@@ -69,6 +69,18 @@ async function login() {
     }
 }
 
+async function logout() {
+  try {
+    await session.defaultSession.cookies.remove(`${cookieUrl}`, 'access_token');
+    await session.defaultSession.cookies.remove(`${cookieUrl}`, 'refresh_token');
+  } catch (error) {
+
+    console.log(error);
+
+    throw new Error('logout failed');
+  }
+}
+
 /**
  * This function opens the popup window for google login and listens to various navigation events.
  * @param {string} secret : the secret key returned from proxy server
@@ -225,5 +237,6 @@ module.exports = {
     getTokenCookie,
     proxyUrl,
     cookieUrl,
-    checkAndGenerateToken
+    checkAndGenerateToken,
+    logout
 }

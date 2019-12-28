@@ -3,7 +3,7 @@
         <span>Binder</span>
         <div style="display: inline-block; position: relative;"> <mat-search-bar (onOpen)="searchOpen()" (onClose)="searchClose()" (onEnter)="searchEntered($event)"></mat-search-bar>
             <div class="search-result-box" *ngIf="searchActive" [@enterAnimation]>
-                <p>Drive files</p>
+                <p>Google Drive files</p>
                 <div *ngFor="let file of searchDriveFiles" class="search-files" (click)="openFile(file.webViewLink)">
                     <span style="margin: 0 10px;">
                         <img src="./assets/word.png" *ngIf="file.mimeType !== 'application/vnd.google-apps.document'" class="icon-img">
@@ -26,11 +26,15 @@
         <div class="file-space" style="min-height: 100%; background-color: rgba(0,0,0,.87)">
 
             <div class="driveFileSpace" style="color: white">
-                <h1 class="mat-h1 mat-headline">Google Drive Files</h1>
+                <div style="display: flex; padding-top: 40px">
+                    <h1 class="mat-h1 mat-headline" style="flex-grow: 23; padding-left: 50px">Google Drive Files</h1>
+                    <i class="material-icons" (click)="logout()" style="flex-grow: 1" *ngIf="googleDriveLogInStatus">power_settings_new</i>
+                </div>
+                <!-- <h1 class="mat-h1 mat-headline">Google Drive Files</h1> -->
                 <div class="login-button-space" *ngIf="!googleDriveLogInStatus">
                     <button mat-raised-button class="login-button" (click)="googleLogin()">Login to Drive</button>
                 </div>
-                <div class="recentFilesList" style="width: 80%;margin:auto;position: relative;">
+                <div *ngIf="googleDriveLogInStatus" class="recentFilesList" style="width: 80%;margin:auto;position: relative;">
                         <div *ngIf="!hasGoogleFileLoad" style="margin: 10% auto;width: 50%;text-align: center"  >
                             <h1 class="mat-h1">
                                 Loading Files..
@@ -53,8 +57,10 @@
 
             <br> <hr> <br>
             <div class="wordFileSpace" style="color: white">
-                <h1 class="mat-h1 mat-headline">System Files</h1>
-                <i class="material-icons" (click)="addPaths()">playlist_add</i>
+                <div style="display: flex">
+                    <h1 class="mat-h1 mat-headline" style="flex-grow: 23; padding-left: 50px">System Files</h1>
+                    <i class="material-icons" (click)="addPaths()" style="flex-grow: 1">playlist_add</i>
+                </div>
                 <div class="fileList" >
                     <div *ngIf="!hasSystemFileLoad" style="margin: 10% auto;width: 50%;text-align: center"  >
                         <h1 class="mat-h1">

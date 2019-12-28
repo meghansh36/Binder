@@ -159,6 +159,15 @@ ipcMain.on('check-google-login', async (event) => {
   event.returnValue = true;
 })
 
+ipcMain.on('google-logout', async (event) => {
+  try {
+    await googleLoginHandler.logout()
+    event.reply('google-logout-response', true)
+  } catch (error) {
+    event.reply('google-logout-response', false)
+  }
+})
+
 ipcMain.on('google-drive-login', async (event) => {
   try {
     await googleLoginHandler.login();

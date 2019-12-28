@@ -75,6 +75,7 @@ export class HomeComponent implements OnInit {
         this.googleDriveLogInStatus = true;
         // fetch drive files on successful login
         this.fetchDriveFiles();
+        console.log('fetching files')
       }
     });
   }
@@ -95,6 +96,7 @@ export class HomeComponent implements OnInit {
     this.driveService.fetchDriveFiles();
     // subscribe to the fetch drive files observable
     this.driveService.fetchDriveFilesEvent.pipe(take(1)).subscribe((files: Array<object>) => {
+      console.log('received files', files)
       this.driveFiles = files;
       this.hasGoogleFileLoad=true;
       this.recentDriveFiles = this.driveFiles.slice(0, 10);
@@ -198,6 +200,18 @@ export class HomeComponent implements OnInit {
         }
       })
     });
+  }
+
+  logout() {
+    this.driveService.googleLogout();
+
+    this.driveService.googleLogoutEvent.pipe(take(1)).subscribe(() => {
+      this.driveFiles = [];
+      this.tableDriveFiles = undefined;
+      this.recentDriveFiles = undefined;
+      this.googleDriveLogInStatus = false;
+      this.hasGoogleFileLoad = false;
+    })
   }
 
 

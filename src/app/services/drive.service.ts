@@ -11,6 +11,7 @@ import { RenameSheetComponent } from '../rename-sheet/rename-sheet.component';
 export class DriveService {
 
   googleLoginEvent = new Subject();
+  googleLogoutEvent = new Subject();
   fetchDriveFilesEvent = new Subject();
   previewEmitter = new Subject();
   renameEmitter = new Subject();
@@ -35,7 +36,8 @@ export class DriveService {
     this._electronService.ipcRenderer.once('google-login-response', (event, success) => {
       if (success) {
         this.googleLoginEvent.next(true);
-        this.googleLoginEvent.complete();
+        console.log('sent login event')
+        // this.googleLoginEvent.complete();
       } else {
        this.baseService.showSnackBar('Error in Google Login', 'failure')
       }
@@ -48,7 +50,7 @@ export class DriveService {
     this._electronService.ipcRenderer.once('fetch-drive-files-response-success', (event, files) => {
       console.log(files);
       this.fetchDriveFilesEvent.next(files.data.files);
-      this.fetchDriveFilesEvent.complete();
+      // this.fetchDriveFilesEvent.complete();
     });
 
     this._electronService.ipcRenderer.once('fetch-drive-files-response-failure', (event) => {
@@ -125,6 +127,20 @@ export class DriveService {
 
   downloadFile(exportLink, name, mimeType, downloadAs) {
     this._electronService.ipcRenderer.send('download-drive-file', exportLink,name, mimeType, downloadAs);
+  }
+
+  googleLogout() {
+    this._electronService.ipcRenderer.send('google-logout');
+
+    this._electronService.ipcRenderer.once('google-logout-response', (event, success) => {
+      if(success) {
+        this.baseService.showSnackBar('Logout Successful', 'success')
+        this.googleLogoutEvent.next();
+      } else {
+        this.baseService.showSnackBar('Logout Failed', 'failure')
+        // this.googleLogoutEvent.next(false);
+      }
+    })
   }
 
 
