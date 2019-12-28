@@ -34,6 +34,15 @@ function getFiles(basePath, filter, ignore) {
 
     return results;
 }
+// sort the results according to last modification time
+function sortResult(results)
+{
+    results.sort(function compare(a,b){
+        if(a.stat.mtime > b.stat.mtime)
+            return -1;
+        return 1
+    })    
+}
 
 function findFiles() {
     const filter = ['.docx', 'doc'];
@@ -43,7 +52,7 @@ function findFiles() {
         console.log(val);
         results = results.concat(getFiles(val, filter, ignore));
     });
-
+    sortResult(results);      
     return results;
 }
 
