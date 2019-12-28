@@ -70,7 +70,7 @@ export class HomeComponent implements OnInit {
    */
   googleLogin() {
     this.driveService.googleLogin();
-    this.driveService.googleLoginEvent.subscribe(success => {
+    this.driveService.googleLoginEvent.pipe(take(1)).subscribe(success => {
       if (success) {
         this.googleDriveLogInStatus = true;
         // fetch drive files on successful login
@@ -94,7 +94,7 @@ export class HomeComponent implements OnInit {
   fetchDriveFiles() {
     this.driveService.fetchDriveFiles();
     // subscribe to the fetch drive files observable
-    this.driveService.fetchDriveFilesEvent.subscribe((files: Array<object>) => {
+    this.driveService.fetchDriveFilesEvent.pipe(take(1)).subscribe((files: Array<object>) => {
       this.driveFiles = files;
       this.hasGoogleFileLoad=true;
       this.recentDriveFiles = this.driveFiles.slice(0, 10);
@@ -113,7 +113,7 @@ export class HomeComponent implements OnInit {
     /**
      * Subscribes to the fetch system files observable
      */
-    this.systemService.systemFileEmitter.subscribe((fileData: Array<object>) => {
+    this.systemService.systemFileEmitter.pipe(take(1)).subscribe((fileData: Array<object>) => {
       this.receivedSystemFiles(fileData);
     });
   }
@@ -177,6 +177,10 @@ export class HomeComponent implements OnInit {
     this.driveService.openDriveFile(link);
   }
 
+  refreshSystemFiles() {
+    this.fetchSystemFiles();
+  }
+
   addPaths() {
     let paths = this.systemService.getPaths();
 
@@ -184,8 +188,15 @@ export class HomeComponent implements OnInit {
       const dialogRef = this.baseService.dialog.open(FilePathComponent, {
         width: '500px',
         height: '300px',
-        data: paths
+        data: [...paths]
       });
+
+      dialogRef.afterClosed().pipe(take(1)).subscribe(modifiedPaths => {
+        if (JSON.stringify(paths) !== JSON.stringify(modifiedPaths)) {
+          //refresh the results
+          this.refreshSystemFiles();
+        }
+      })
     });
   }
 

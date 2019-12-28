@@ -18,12 +18,17 @@ export class FilePathComponent implements OnInit {
 
   addPath() {
     let addedPath = this.systemService.addPath();
-    this.paths.push(addedPath);
+    if(addedPath)
+      this.paths.push(addedPath);
   } 
 
   deletePath(index) {
     if(this.systemService.deletePath(index))
       this.paths.splice(index,1);
+  }
+
+  close() {
+    this.dialogRef.close(this.paths);
   }
 
 }

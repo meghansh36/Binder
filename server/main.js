@@ -78,12 +78,15 @@ ipcMain.on('add-path', (event) => {
     buttonLabel: 'Select',
   })
 
-  let paths = fs.readFileSync('paths.json').toString();
-  paths = JSON.parse(paths);
-  paths.sysPaths.push(selectedPath[0]);
-  fs.writeFileSync('paths.json', JSON.stringify(paths));
-
-  event.returnValue = selectedPath[0];
+  if(selectedPath) {
+    let paths = fs.readFileSync('paths.json').toString();
+    paths = JSON.parse(paths);
+    paths.sysPaths.push(selectedPath[0]);
+    fs.writeFileSync('paths.json', JSON.stringify(paths));
+    event.returnValue = selectedPath[0];
+  }
+  else 
+    event.returnValue = undefined;
   
 })
 
